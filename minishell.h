@@ -6,7 +6,7 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/08/30 13:17:14 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:16:55 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,7 @@ char    *expand_var(t_struct *data, char *word);
 void    pipes_func(t_struct *data, int mode);
 
 void    ft_infile(t_struct *data);
+
+int		builtins(t_struct *data, int mode);
 
 #endif
