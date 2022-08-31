@@ -6,7 +6,7 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:05:19 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/08/04 18:44:04 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/08/30 12:33:46 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	unset_func_body(t_struct *data, int i, int line)
 	return (i);
 }
 
-int	unset_func(t_struct *data, int helper)
+int	unset_func(t_struct *data, int helper, int mode)
 {
 	int	i;
 	int	line;
@@ -59,6 +59,8 @@ int	unset_func(t_struct *data, int helper)
 	i = 1;
 	if (!ft_strncmp(data->cmd[0], "unset", 5) || helper == 1)
 	{
+		if (mode == 0)
+			return (1);
 		while (data->cmd[i])
 		{
 			line = super_strncmp(data->env, data->cmd[i],
@@ -94,14 +96,16 @@ int	export_func_body(t_struct *data, int i)
 	return (i);
 }
 
-int	export_func(t_struct *data)
+int	export_func(t_struct *data, int mode)
 {
 	int	i;
 
 	i = 1;
 	if (!ft_strncmp(data->cmd[0], "export", 6))
 	{
-		unset_func(data, 1);
+		if (mode == 0)
+			return (1);
+		unset_func(data, 1, 1);
 		while (data->cmd[i])
 			i = export_func_body(data, i);
 		return (1);

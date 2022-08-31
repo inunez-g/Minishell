@@ -6,7 +6,7 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:20:51 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/08/08 18:31:55 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/08/30 11:47:01 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ void    save_cmd(t_struct *data, char *str)
 
     i = 0;
     helper = 0;
-	//str = expand_variables(data, str);
     while(str[i] != '\0')
     {
 		//printf("[%d][%c]\n", i, str[i]);
@@ -101,7 +100,6 @@ void    save_cmd(t_struct *data, char *str)
 		} 
 		else if (str[i] != '\0')
 		{
-			//str = expand_variables(data, str);
 			data->cmd[helper] = save_words(str, &i);
 			helper++;
 		}

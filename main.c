@@ -6,27 +6,27 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:51:26 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/08/16 17:45:12 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/08/30 13:17:16 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int builtins(t_struct *data)
+int builtins(t_struct *data, int mode)
 {
-	if (echo_func(*data))
+	if (echo_func(*data, mode))
 		return (1);
-	else if (exit_func(*data))
+	else if (exit_func(*data, mode))
 		return(1);
-	else if (env_func(*data))
+	else if (env_func(*data, mode))
 		return(1);
-	else if (pwd_func(*data))
+	else if (pwd_func(*data, mode))
 		return(1);
-	else if (cd_func(data))
+	else if (cd_func(data, mode))
 		return (1);
-	else if (export_func(data))
+	else if (export_func(data, mode))
 		return(1);
-	else if (unset_func(data, 0))
+	else if (unset_func(data, 0, mode))
 		return(1);
 	return(0);
 }
@@ -71,39 +71,58 @@ int export_helper(char *str)
 	return(i);
 }
 
+int	activation_func(t_struct *data, int mode)
+{
+	if (mode != 3)
+		return (1);
+	if (!builtins(data, 0))
+		return (1);
+	ft_outfile(data);
+	ft_infile(data);
+	builtin_pipe(data);
+	//builtins(data, 1);
+	//close(data->inpipe);
+	//close(data->fd[0]);
+	//close(data->fd[1]);
+	return (0);
+}
+
 void    executions_func(t_struct *data, int mode)
 {
     int pid;
     int status;
     int fd[2];
 
-    pipe(fd);
-    if (!builtins(data))
+    if (activation_func(data, mode))
     {
+		pipe(fd);
         pid = fork();
         if (pid == -1)
             return ;
         if (pid == 0)
         {
-            ft_oufile(data);
-            /*if (mode == 1)
-            else if (mode == 3)*/
-            //write(2, "Entro a la funcion\n", 19);
-            if (mode == 0)
-                mode0_pipe(data);
-            commands_func(data);
+            ft_outfile(data);
+			ft_infile(data);
+			pipes_func(data, mode); 
+			if (!builtins(data, 1))
+	            commands_func(data);
         }
         else
         {
             waitpid(pid, &status, 0);
-            data->inpipe = fd[0];
             if (data->inpipe != -1)
                 close(data->inpipe);
+			data->inpipe = fd[0];
             close(fd[1]);
-            close(fd[0]);
+			if (mode == 2)
+            	close(fd[0]);
+			data->fd_outfile = -1;
+			data->fd_infile = -1;
         }
     }
 }
+
+
 
 // MAIN FUNC
 

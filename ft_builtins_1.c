@@ -6,38 +6,44 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:04:59 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/08/08 20:10:40 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/08/30 12:09:54 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	echo_func(t_struct data)
+int	echo_func(t_struct data, int mode)
 {
 	int	i;
 
 	i = 1;
 	if (!strncmp(data.cmd[0], "echo", ft_strlen(data.cmd[0])))
 	{
-		if (!strncmp(data.cmd[1], "-n", ft_strlen(data.cmd[1])))
+		if (mode == 0)
+				return (1);
+		if (!strncmp(data.cmd[1], "-n", ft_strlen(data.cmd[1])) && data.cmd[1][0] != '\0')
 			i = 2;
 		while (data.cmd[i] != NULL)
 		{
 			printf("%s", data.cmd[i++]);
-			if (data.cmd[i] != NULL)
+			if (data.cmd[i] != NULL || (data.cmd[i - 1][0] == '\0' && data.cmd[i]))
+			{
 				printf(" ");
+			}
 		}
-		if (strncmp(data.cmd[1], "-n", ft_strlen(data.cmd[1])))
+		if (strncmp(data.cmd[1], "-n", ft_strlen(data.cmd[1])) || data.cmd[1][0] == '\0')
 			printf("\n");
 		return (1);
 	}
 	return (0);
 }
 
-int	exit_func(t_struct data)
+int	exit_func(t_struct data, int mode)
 {
 	if (!strncmp(data.cmd[0], "exit", ft_strlen(data.cmd[0])))
 	{
+		if (mode == 0)
+			return (1);
 		if (data.cmd[1] != NULL)
 			exit(ft_atoi(data.cmd[1]));
 		else
@@ -46,13 +52,15 @@ int	exit_func(t_struct data)
 	return (0);
 }
 
-int	env_func(t_struct data)
+int	env_func(t_struct data, int	mode)
 {
 	int	i;
 
 	i = 0;
 	if (!strncmp(data.cmd[0], "env", ft_strlen(data.cmd[0])))
 	{
+		if (mode == 0)
+			return (1);
 		while (data.env[i] != NULL)
 			printf("%s\n", data.env[i++]);
 		return (1);
@@ -60,12 +68,14 @@ int	env_func(t_struct data)
 	return (0);
 }
 
-int	pwd_func(t_struct data)
+int	pwd_func(t_struct data, int	mode)
 {
 	int	pos;
 
 	if (!strncmp(data.cmd[0], "pwd", 3) && ft_strlen(data.cmd[0]) == 3)
 	{
+		if (mode == 0)
+			return (1);
 		pos = super_strncmp(data.env, "PWD=", 4);
 		if (pos != -1)
 			printf("%s\n", data.env[pos] + 4);
@@ -74,7 +84,7 @@ int	pwd_func(t_struct data)
 	return (0);
 }
 
-int	cd_func(t_struct *data)
+int	cd_func(t_struct *data, int	mode)
 {
 	char	*path;
 	char	*final_path;
@@ -82,6 +92,8 @@ int	cd_func(t_struct *data)
 
 	if (!strncmp(data->cmd[0], "cd", ft_strlen(data->cmd[0])))
 	{
+		if (mode == 0)
+			return (1);
 		path = data->cmd[1];
 		pos = super_strncmp(data->env, "PWD=", 4);
 		if (path[0] != '/')
