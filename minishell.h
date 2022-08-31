@@ -6,7 +6,7 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/08/16 17:44:26 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/08/30 13:17:14 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,25 @@ typedef struct s_struct
 	int fd_outfile;
 }t_struct;
 
-int		echo_func(t_struct data);
+int		echo_func(t_struct data, int mode);
 
-int		exit_func(t_struct data);
+int		exit_func(t_struct data, int mode);
 
-int		env_func(t_struct data);
+int		env_func(t_struct data, int mode);
 
-int		pwd_func(t_struct data);
+int		pwd_func(t_struct data, int mode);
 
 char	*cd_func_body(t_struct *data, int pos);
 
-int		cd_func(t_struct *data);
+int		cd_func(t_struct *data, int mode);
 
 int		unset_func_body(t_struct *data, int i, int line);
 
-int		unset_func(t_struct *data, int helper);
+int		unset_func(t_struct *data, int helper, int mode);
 
 int		export_func_body(t_struct *data, int i);
 
-int		export_func(t_struct *data);
+int		export_func(t_struct *data, int mode);
 
 int		super_strncmp(char **str1, char *str2, int n);
 
@@ -82,7 +82,7 @@ void	prepare_data(t_struct *data, char *str, int mode);
 
 void	prepare_pipes(t_struct *data, char *str);
 
-char	**ft_dollar(char *str);
+char	*ft_dollar(t_struct *data, char *str);
 
 char	**save_word2(const char *s, char c, char **split, int a);
 
@@ -116,12 +116,22 @@ int		check_nbr_cmd(char *str);
 	
 void	ft_mega_pass(char *str, int *i, char *characters);
 
-void	mode3_pipe(t_struct *data);
+void    builtin_pipe(t_struct *data);
 
-//void mode2_pipe(t_struct *data);
+void	mode2_pipe(t_struct *data);
+
+void	mode1_pipe(t_struct *data);
 
 void	mode0_pipe(t_struct *data);
 
-void	ft_oufile(t_struct *data);
+void	ft_outfile(t_struct *data);
+
+char	*clean_exp_vars(char *word);
+
+char    *expand_var(t_struct *data, char *word);
+
+void    pipes_func(t_struct *data, int mode);
+
+void    ft_infile(t_struct *data);
 
 #endif
