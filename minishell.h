@@ -6,7 +6,7 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/08/31 11:16:55 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/02 11:36:14 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,16 @@
 
 typedef struct s_struct
 {
-	char **cmd;
-	char **infile;
-	int *infile_modes;
-	char **outfile;
-	int *outfile_modes;
-	char **env;
-	int fd[2];
-	int inpipe;
-	int fd_infile;
-	int fd_outfile;
+	char	**cmd;
+	char	**infile;
+	int		*infile_modes;
+	char	**outfile;
+	int		*outfile_modes;
+	char	**env;
+	int		fd[2];
+	int		inpipe;
+	int		fd_infile;
+	int		fd_outfile;
 }t_struct;
 
 int		echo_func(t_struct data, int mode);
@@ -113,10 +113,10 @@ void	save_cmd(t_struct *data, char *str);
 void	pass_dollar(char *str, int *i);
 
 int		check_nbr_cmd(char *str);
-	
+
 void	ft_mega_pass(char *str, int *i, char *characters);
 
-void    builtin_pipe(t_struct *data);
+void	builtin_pipe(t_struct *data);
 
 void	mode2_pipe(t_struct *data);
 
@@ -128,12 +128,16 @@ void	ft_outfile(t_struct *data);
 
 char	*clean_exp_vars(char *word);
 
-char    *expand_var(t_struct *data, char *word);
+char	*expand_var(t_struct *data, char *word);
 
-void    pipes_func(t_struct *data, int mode);
+void	pipes_func(t_struct *data, int mode);
 
-void    ft_infile(t_struct *data);
+void	ft_infile(t_struct *data);
 
 int		builtins(t_struct *data, int mode);
+
+char	**temp_dollar2(char*str, char **final, int i);
+
+char	*ft_dollar2(t_struct *data, char *str, char **final);
 
 #endif

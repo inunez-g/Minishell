@@ -6,32 +6,32 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:51:26 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/08/31 11:16:27 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/08 12:21:00 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int builtins(t_struct *data, int mode)
+int	builtins(t_struct *data, int mode)
 {
 	if (echo_func(*data, mode))
 		return (1);
 	else if (exit_func(*data, mode))
-		return(1);
+		return (1);
 	else if (env_func(*data, mode))
-		return(1);
+		return (1);
 	else if (pwd_func(*data, mode))
-		return(1);
+		return (1);
 	else if (cd_func(data, mode))
 		return (1);
 	else if (export_func(data, mode))
-		return(1);
+		return (1);
 	else if (unset_func(data, 0, mode))
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
 
-int commands_func(t_struct *data)
+int	commands_func(t_struct *data)
 {
 	char	*final_path;
 	char	**path;
@@ -42,8 +42,8 @@ int commands_func(t_struct *data)
 	i = 0;
 	command = ft_strjoin("/", data->cmd[0]);
 	pos = super_strncmp(data->env, "PATH=", 5);
-	path= ft_split(data->env[pos] + 5, ':');
-	while(path[i] != NULL)
+	path = ft_split(data->env[pos] + 5, ':');
+	while (path[i] != NULL)
 	{
 		final_path = ft_strjoin(path[i], command);
 		if (access(final_path, X_OK) == -1)
@@ -52,23 +52,20 @@ int commands_func(t_struct *data)
 			i++;
 		}
 		else
-		{
-			//printf("HOLA\n");
-			execve(ft_strjoin(path[i],command), data->cmd, data->env);
-		}
+			execve(ft_strjoin(path[i], command), data->cmd, data->env);
 	}
 	printf("command not found\n");
 	exit (0);
 }
 
-int export_helper(char *str)
+int	export_helper(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i] != '\0' && str[i] != '=')
 		i++;
-	return(i);
+	return (i);
 }
 
 int	activation_func(t_struct *data, int mode)
@@ -87,56 +84,54 @@ int	activation_func(t_struct *data, int mode)
 	return (0);
 }
 
-void    executions_func(t_struct *data, int mode)
+void	executions_func(t_struct *data, int mode)
 {
-    int pid;
-    int status;
-    int fd[2];
+	int	pid;
+	int	status;
+	int	fd[2];
 
-    if (activation_func(data, mode))
-    {
+	if (activation_func(data, mode))
+	{
+		printf("holaaa\n");
 		pipe(fd);
-        pid = fork();
-        if (pid == -1)
-            return ;
-        if (pid == 0)
-        {
-            ft_outfile(data);
+		pid = fork();
+		if (pid == -1)
+			return ;
+		if (pid == 0)
+		{
+			ft_outfile(data);
 			ft_infile(data);
-			pipes_func(data, mode); 
+			pipes_func(data, mode);
 			if (!builtins(data, 1))
-	            commands_func(data);
-        }
-        else
-        {
-            waitpid(pid, &status, 0);
-            if (data->inpipe != -1)
-                close(data->inpipe);
+				commands_func(data);
+		
+		printf("holaaa\n");}
+		else
+		{
+			waitpid(pid, &status, 0);
+			if (data->inpipe != -1)
+				close(data->inpipe);
 			data->inpipe = fd[0];
-            close(fd[1]);
+			close(fd[1]);
 			if (mode == 2)
-            	close(fd[0]);
+				close(fd[0]);
 			data->fd_outfile = -1;
 			data->fd_infile = -1;
-        }
-    }
+		}
+	}
 }
 
-
-
-// MAIN FUNC
-
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
-	char *str;
-	t_struct data;
+	char				*str;
+	t_struct			data;
 	struct sigaction	sa;
+
 	(void)argc;
 	(void)argv;
-
-	sa.sa_flags = 0; 
-    sa.sa_mask = 0;
-    rl_catch_signals = 0;
+	sa.sa_flags = 0;
+	sa.sa_mask = 0;
+	rl_catch_signals = 0;
 	sa.sa_sigaction = sighandler;
 	sigaction(SIGINT, &sa, NULL);
 	data.env = super_dup(env);
