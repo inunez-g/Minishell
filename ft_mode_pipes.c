@@ -6,7 +6,7 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:46:37 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/08 12:20:56 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/09 09:59:50 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ void	builtin_pipe(t_struct *data)
 	if (data->fd_outfile != -1)
 		dup2(data->fd_outfile, STDOUT_FILENO);
 	builtins(data, 1);
-	close(data->inpipe);
+	close(data->inpipe)//;
 	close(data->fd[0]);
 	close(data->fd[1]);
+	close(data->fd_infile);//
+	close(data->fd_outfile);//
 	dup2(0, STDOUT_FILENO);
 	dup2(0, STDIN_FILENO);
 }
@@ -74,7 +76,11 @@ void	mode0_pipe(t_struct *data)
 		dup2(data->fd_outfile, STDOUT_FILENO);
 	else
 		dup2(data->fd[1], STDOUT_FILENO);
+	//printf("terminé\n");
 	close(data->fd[1]);
+	//close(data->fd_infile);//
+	//close(data->fd_outfile);//
+	//printf("terminé\n");
 }
 
 void	ft_outfile(t_struct *data)
@@ -82,6 +88,7 @@ void	ft_outfile(t_struct *data)
 	int	i;
 	int	fd;
 
+	printf("outfile\n");
 	i = 0;
 	while (data->outfile[i])
 	{

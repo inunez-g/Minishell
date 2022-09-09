@@ -6,7 +6,7 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:29:14 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/02 11:41:49 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/09 09:45:18 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,21 +57,21 @@ void	prepare_data(t_struct *data, char *str, int mode)
 	save_in_outfiles(data, str, 62);
 	save_cmd(data, str);
 	i = 0;
-	//printf("EMPIEZA\n");
-	//super_printf(data->cmd);
-	//printf("TERMINA\n");
+	/*printf("EMPIEZA\n");
+	super_printf(data->cmd);
+	printf("TERMINA\n");*/
 	while (data->cmd[i] != NULL)
 	{
 		helper = expand_variables(data, data->cmd[i]);
 		data->cmd[i] = helper;
 		i++;
 	}
-	//printf("CMD[%s]:\n",str);
-	//super_printf(data->cmd);
-	//printf("INFILES:\n");
-	//super_printf(data->infile);
-	//printf("OUTFILES:\n");
-	//super_printf(data->outfile);
+	printf("CMD[%s]:\n",str);
+	super_printf(data->cmd);
+	printf("INFILES:\n");
+	super_printf(data->infile);
+	printf("OUTFILES:\n");
+	super_printf(data->outfile);
 	executions_func(data, mode);
 }
 

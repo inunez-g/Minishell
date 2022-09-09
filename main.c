@@ -6,7 +6,7 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:51:26 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/08 12:21:00 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/09 09:59:48 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	executions_func(t_struct *data, int mode)
 
 	if (activation_func(data, mode))
 	{
-		printf("holaaa\n");
+		//printf("holaaa\n");
 		pipe(fd);
 		pid = fork();
 		if (pid == -1)
@@ -105,7 +105,8 @@ void	executions_func(t_struct *data, int mode)
 			if (!builtins(data, 1))
 				commands_func(data);
 		
-		printf("holaaa\n");}
+		//printf("holaaa\n");
+		}
 		else
 		{
 			waitpid(pid, &status, 0);
