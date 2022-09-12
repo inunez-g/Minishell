@@ -6,7 +6,7 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:04:59 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/01 18:09:31 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/09 13:30:21 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,18 @@ int	echo_func(t_struct data, int mode)
 	if (!strncmp(data.cmd[0], "echo", ft_strlen(data.cmd[0])))
 	{
 		if (mode == 0)
-			return (1);
-		if (!strncmp(data.cmd[1], "-n", ft_strlen(data.cmd[1])) \
-			&& data.cmd[1][0] != '\0')
+				return (1);
+		if (!strncmp(data.cmd[1], "-n", ft_strlen(data.cmd[1])) && data.cmd[1][0] != '\0')
 			i = 2;
 		while (data.cmd[i] != NULL)
 		{
 			printf("%s", data.cmd[i++]);
-			if (data.cmd[i] != NULL || (data.cmd[i - 1][0] == '\0' \
-				&& data.cmd[i]))
+			if (data.cmd[i] != NULL || (data.cmd[i - 1][0] == '\0' && data.cmd[i]))
 			{
 				printf(" ");
 			}
 		}
-		if (strncmp(data.cmd[1], "-n", ft_strlen(data.cmd[1])) \
-			|| data.cmd[1][0] == '\0')
+		if (strncmp(data.cmd[1], "-n", ft_strlen(data.cmd[1])) || data.cmd[1][0] == '\0')
 			printf("\n");
 		return (1);
 	}
@@ -55,7 +52,7 @@ int	exit_func(t_struct data, int mode)
 	return (0);
 }
 
-int	env_func(t_struct data, int mode)
+int	env_func(t_struct data, int	mode)
 {
 	int	i;
 
@@ -71,7 +68,7 @@ int	env_func(t_struct data, int mode)
 	return (0);
 }
 
-int	pwd_func(t_struct data, int mode)
+int	pwd_func(t_struct data, int	mode)
 {
 	int	pos;
 
@@ -87,7 +84,7 @@ int	pwd_func(t_struct data, int mode)
 	return (0);
 }
 
-int	cd_func(t_struct *data, int mode)
+int	cd_func(t_struct *data, int	mode)
 {
 	char	*path;
 	char	*final_path;

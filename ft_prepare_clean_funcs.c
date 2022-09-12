@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prepare_clean_funcs.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:29:14 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/09 09:45:18 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:38:42 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ void	prepare_pipes(t_struct *data, char *str)
 
 void	prepare_data(t_struct *data, char *str, int mode)
 {
-	int		i;
-	char	*helper;
+	int i;
+	char *hola;
 
 	data->inpipe = -1;
 	data->cmd = NULL;
 	data->infile = NULL;
 	data->outfile = NULL;
+	//str = expand_variables(data, str);
 	data->cmd = (char **)malloc(sizeof(char *) * (check_nbr_cmd(str) + 1));
 	data->infile = (char **)malloc(sizeof(char *)
 			* (check_nbr_pointers(str, 60) + 1));
@@ -56,22 +57,23 @@ void	prepare_data(t_struct *data, char *str, int mode)
 	save_in_outfiles(data, str, 60);
 	save_in_outfiles(data, str, 62);
 	save_cmd(data, str);
+	//expand(data);
 	i = 0;
-	/*printf("EMPIEZA\n");
-	super_printf(data->cmd);
-	printf("TERMINA\n");*/
+	//printf("EMPIEZA\n");
+	//super_printf(data->cmd);
+	//printf("TERMINA\n");
 	while (data->cmd[i] != NULL)
 	{
-		helper = expand_variables(data, data->cmd[i]);
-		data->cmd[i] = helper;
+		hola = expand_variables(data, data->cmd[i]);
+		data->cmd[i] = hola;
 		i++;
 	}
-	printf("CMD[%s]:\n",str);
-	super_printf(data->cmd);
-	printf("INFILES:\n");
-	super_printf(data->infile);
-	printf("OUTFILES:\n");
-	super_printf(data->outfile);
+  	//printf("CMD[%s]:\n",str);
+    //super_printf(data->cmd);
+    //printf("INFILES:\n");
+    //super_printf(data->infile);
+    //printf("OUTFILES:\n");
+    //super_printf(data->outfile);
 	executions_func(data, mode);
 }
 
@@ -120,21 +122,3 @@ char	*clean_path_func(char *path)
 	}
 	return (clean_path);
 }
-/*
-char	*clean_path_func(char *clean_path, char path, int *i, int *index, int *j
-			if (path[i + 1] == '.' && path[i + 2] == '.')
-            {
-                i += 3;
-                index = i;
-            }
-            else
-            {
-                while (index < i)
-                {
-                    clean_path[j] = path[index];
-                    j++;
-                    index++;
-                }
-                i++;
-            }
-*/

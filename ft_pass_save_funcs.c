@@ -6,7 +6,7 @@
 /*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:02:27 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/01 18:21:48 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/08/24 19:13:17 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	pass_spaces(char *str, int *i)
 
 void	pass_dollar(char *str, int *i)
 {
-	while (str[*i] != '\0' && str[*i] != '$' && str[*i] != ' ')
+	while (str[*i] != '\0' && str[*i] != '$' && str[*i] != ' ')//' '
 	{
 		*i = check_quotes(str, *i);
 		(*i)++;
@@ -47,8 +47,7 @@ void	pass_dollar(char *str, int *i)
 
 void	ft_mega_pass(char *str, int *i, char *characters)
 {
-	while (str[*i] != '\0' && ft_strchr(characters, str[*i]) == 0 \
-		&& str[*i] != 34 && str[*i] != ' ')
+	while (str[*i] != '\0' && ft_strchr(characters, str[*i]) == 0 && str[*i] != 34 && str[*i] != ' ')
 		(*i)++;
 }
 /*
