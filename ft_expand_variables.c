@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_expand_variables.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:15:58 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/09 11:06:59 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/16 18:41:05 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ char	*ft_dollar(t_struct *data, char *str)
 		counter++;
 	}
 	helper = join_variables(final, counter);
+	free(str);
 	return (helper);
 }
 
@@ -180,6 +181,7 @@ char    *expand_variables(t_struct *data, char *str)
 		i++;
 	}
 	helper = join_variables(word, super_strlen(word));
+	free_memory2(word);
 	//printf("helper = %s\n", helper);
 	return (helper);
 }

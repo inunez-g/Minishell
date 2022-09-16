@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:51:26 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/09 13:21:11 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/16 18:34:16 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int commands_func(t_struct *data)
 	int		i;
 
 	i = 0;
+	if (data->cmd[0] == NULL)
+			exit (0);
 	command = ft_strjoin("/", data->cmd[0]);
 	pos = super_strncmp(data->env, "PATH=", 5);
 	path= ft_split(data->env[pos] + 5, ':');
@@ -136,10 +138,13 @@ int main(int argc, char **argv, char **env)
     rl_catch_signals = 0;
 	sa.sa_sigaction = sighandler;
 	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
 	data.env = super_dup(env);
 	while (1)
 	{
+		g_proccess = 0;
 		str = readline("consola> ");
+		g_proccess = 1;
 		if (!str)
 			exit (0);
 		if (str[0] == '\0')
@@ -166,12 +171,20 @@ void	sighandler(int signal, siginfo_t *a, void *b)
 {
 	(void)a;
 	(void)b;
+	if (signal == SIGQUIT)
+		return ;
 	if (signal == 0)
 		exit (0);
-	if (signal == 2)
+	if (signal == 2 && g_proccess == 0)
 	{
 		ft_new_line();
 	}
+	if (signal == 2 && g_proccess == 1)
+	{
+		printf("\n");
+		rl_on_new_line();
+	}
+	
 }
 
 void	write_pipe(int fd)

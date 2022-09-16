@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/09 11:08:40 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/16 18:32:17 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include "libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
+
+int	g_proccess;
 
 typedef struct s_struct
 {
@@ -114,7 +116,7 @@ void	save_cmd(t_struct *data, char *str);
 void	pass_dollar(char *str, int *i);
 
 int		check_nbr_cmd(char *str);
-	
+
 void	ft_mega_pass(char *str, int *i, char *characters);
 
 void    builtin_pipe(t_struct *data);
@@ -136,4 +138,9 @@ void    pipes_func(t_struct *data, int mode);
 void    ft_infile(t_struct *data);
 
 int builtins(t_struct *data, int mode);
+
+int	strncmp_ms(char *s1, char *s2);
+
+char	*strjoin_ms(char *str1, char *str2, int boo);
+
 #endif

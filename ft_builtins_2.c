@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:05:19 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/09 13:19:07 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/16 17:57:11 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	unset_func(t_struct *data, int helper, int mode)
 	int	line;
 
 	i = 1;
-	if (!ft_strncmp(data->cmd[0], "unset", 5) || helper == 1)
+	if (!strncmp_ms(data->cmd[0], "unset") || helper == 1)
 	{
 		if (mode == 0)
 			return (1);
@@ -101,7 +101,7 @@ int	export_func(t_struct *data, int mode)
 	int	i;
 
 	i = 1;
-	if (!ft_strncmp(data->cmd[0], "export", 6))
+	if (!strncmp_ms(data->cmd[0], "export"))
 	{
 		if (mode == 0)
 			return (1);

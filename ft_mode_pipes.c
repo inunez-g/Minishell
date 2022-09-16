@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:46:37 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/09 13:29:29 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/16 18:08:22 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,14 @@ void	ft_outfile(t_struct *data)
 
 void    ft_infile(t_struct *data)
 {
-    int i;
-    int fd;
-	int fd2[2];
+    int		i;
+    int		fd;
+	int 	fd2[2];
 	char	*temp;
 	char	*str;
 
-	str = "";
+	str = NULL;
+	temp = NULL;
     i = 0;
     while (data->infile[i])
     {
@@ -122,13 +123,13 @@ void    ft_infile(t_struct *data)
 		}
         else
 		{
-			temp = readline("> ");
-			while (strncmp(temp, data->infile[i], ft_strlen(data->infile[i])))
+			while (1)
 			{
-				str = ft_strjoin(str, temp);
-				str = ft_strjoin(str, "\n");
-				free(temp);
 				temp = readline("> ");
+				if (!strncmp_ms(temp, data->infile[i]) || temp == NULL)
+					break ;
+				str = strjoin_ms(str, temp, 1);
+				str = strjoin_ms(str, "\n", 0);
 			}
 			free(temp);
 			if (data->infile[i + 1] == NULL)
