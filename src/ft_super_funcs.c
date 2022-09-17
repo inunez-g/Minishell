@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_super_funcs.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:01:11 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/08/24 19:12:19 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/17 19:10:13 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	super_strncmp(char **str1, char *str2, int n)
 {

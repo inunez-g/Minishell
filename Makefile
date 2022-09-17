@@ -1,20 +1,26 @@
 NAME = minishell
 
-CSRC =	main.c \
-		ft_split2.c \
-		utils.c\
-		ft_super_funcs.c\
-		ft_builtins_1.c\
-		ft_builtins_2.c\
-		ft_prepare_clean_funcs.c\
-		ft_mode_pipes.c\
-		ft_pass_save_funcs.c\
-		ft_expand_variables.c\
-		libft2.c
+CSRC =	src/main.c						\
+		src/ft_split2.c					\
+		src/utils.c						\
+		src/ft_super_funcs.c			\
+		src/ft_builtins_1.c				\
+		src/ft_builtins_2.c				\
+		src/ft_mode_pipes.c				\
+		src/ft_pass_save_funcs.c		\
+		src/ft_expand_variables.c		\
+		src/libft2.c					\
+		src/signals.c					\
+		src/inoutfile.c					\
+		src/input.c						\
+		src/error.c						\
+		src/ft_expand_var_aux.c	\
+		src/proccess.c					\
+		src/ft_checker.c
 
 OSRC = $(CSRC:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra -g#-g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 LDFLAGS = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib/
 CPPFLAGS= -I/Users/$(USER)/.brew/opt/readline/include
 GCCCMD = gcc

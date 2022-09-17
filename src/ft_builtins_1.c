@@ -6,11 +6,11 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:04:59 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/16 18:04:42 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/17 19:10:32 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	echo_func(t_struct data, int mode)
 {

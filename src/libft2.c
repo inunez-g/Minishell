@@ -6,11 +6,11 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 17:26:42 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/16 18:08:05 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/17 19:25:46 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	strncmp_ms(char *s1, char *s2)
 {
@@ -54,8 +54,56 @@ char	*strjoin_ms(char *str1, char *str2, int boo)
 		free (str2);
 	return (final);
 }
-/*
-char	*strjoin_ms(char *str, char *str2)
+
+char	*super_join(char **str)
 {
-	
-}*/
+	int	i;
+	char	*final;
+
+	i = 0;
+	final = NULL;
+	if (str == NULL)
+		return (NULL);
+	while (str[i])
+	{
+		final = strjoin_ms(final, str[i], 1);
+		i++;
+	}
+	free(str);
+	return (final);
+}
+char	*substr_ms(char *s, unsigned int start, size_t	len)
+{
+	char	*final_str;
+	size_t	i;
+	size_t	j;
+	size_t	reallen;
+
+	i = start;
+	j = 0;
+	if (!s)
+		return (0);
+	if (ft_strlen(s) < (start + len))
+		reallen = (ft_strlen(s) - start);
+	else
+		reallen = len;
+	if (ft_strlen(s) < start)
+		reallen = 0;
+	final_str = (char *)malloc((reallen + 1) * (sizeof(char)));
+	if (!final_str)
+		return (0);
+	while (i < ft_strlen(s) && j < reallen)
+		final_str[j++] = s[i++];
+	final_str[j] = '\0';
+	free (s);
+	return (final_str);
+}
+
+int	strchr_ms(char *str, char c)
+{
+	while (*str != '\0' && c != *str)
+		str++;
+	if (c == *str)
+		return (1);
+	return (0);
+}

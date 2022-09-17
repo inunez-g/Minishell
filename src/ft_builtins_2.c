@@ -6,11 +6,11 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:05:19 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/16 17:57:11 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/17 19:10:29 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*cd_func_body(t_struct *data, int pos)
 {

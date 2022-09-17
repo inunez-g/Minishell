@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:16:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/08/19 11:29:35 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/17 19:10:15 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int     check_quotes(const char *str, int i)
 {
@@ -40,56 +40,56 @@ int free_memory2(char **split)
 
 int count_words2(const char *s, char c)
 {
-    int nbr_words;
-    int i;
-	int	counter;
+	int nbr_words;
+	int i;
+	int	check;
 
-    nbr_words = 0;
-    i = 0;
-	counter = 0;
-    while (s[counter])
-    {
-        if (s[counter] != c && i == 0)
-        {
-            i = 1;
-            nbr_words++;
-        }
-        else if (s[counter] == c)
-            i = 0;
-		counter = check_quotes(s, counter);
-        counter++;
-    }
-    return (nbr_words);
+	nbr_words = 0;
+	i = 0;
+	check = 0;
+	while (s[i])
+	{
+		if (s[i] != c && check == 0)
+		{
+			check = 1;
+			nbr_words++;
+		}
+		else if (s[i] == c)
+			check = 0;
+		i = check_quotes(s, i);
+		i++;
+	}
+	return (nbr_words);
 }
 
 char    **save_word2(const char *s, char c, char **split, int a)
 {
-    int r;
-    int counter;
-    int i;
+	int	r;
+	int	counter;
+	int	i;
 
-    counter = 0;
-    r = 0;
-    while (a < count_words2(s, c))
-    {
-        if (s[counter] != c && r == 0)
-        {
-            r = 1;
-            i = counter;
-        }
-        else if (((s[counter] == c) || (s[counter] == '\0')) && r == 1)
-        {
-            r = 0;
-            split[a] = ft_substr(s, i, (counter - i));
-            if (!split[a])
-                free_memory2(split);
-            a++;
-        }
+	counter = 0;
+	r = 0;
+	while (a < count_words2(s, c))
+	{
+		if (s[counter] != c && r == 0)
+		{
+			r = 1;
+			i = counter;
+		}
+		else if (((s[counter] == c) || (s[counter] == '\0')) && r == 1)
+		{
+			r = 0;
+			split[a] = ft_substr(s, i, (counter - i));
+			if (!split[a])
+				free_memory2(split);
+			a++;
+		}
 		counter = check_quotes(s, counter);
-        counter++;
-    }
-    split[a] = 0;
-    return (split);
+		counter++;
+	}
+	split[a] = 0;
+	return (split);
 }
 
 char    **ft_split2(const char *s, char c)

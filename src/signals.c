@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/13 11:00:01 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/17 19:20:03 by ecamara          ###   ########.fr       */
+/*   Created: 2022/09/17 17:43:05 by ecamara           #+#    #+#             */
+/*   Updated: 2022/09/17 19:09:58 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-size_t	ft_strlen(const char *str)
+void	ft_new_line(void)
 {
-	size_t	a;
+	write(2, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
 
-	a = 0;
-	if (!str || str == NULL)
-		return (0);
-	while (str[a] != '\0')
+void	sighandler(int signal, siginfo_t *a, void *b)
+{
+	(void)a;
+	(void)b;
+	if (signal == SIGQUIT)
+		return ;
+	if (signal == 0)
+		exit (0);
+	if (signal == 2 && g_proccess == 0)
 	{
-		a++;
+		ft_new_line();
 	}
-	return (a);
+	if (signal == 2 && g_proccess == 1)
+	{
+		printf("\n");
+		rl_on_new_line();
+	}
+	
 }
