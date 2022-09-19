@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/17 19:25:37 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/18 19:02:59 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_struct
 	int	status;
 }t_struct;
 
+void	write_pipe(int fd);
 int export_helper(char *str);
 
 /* ---- PROCCESS ---- */
@@ -108,11 +109,11 @@ int		export_func(t_struct *data, int mode);
 
 /* --- MODES_PIPES --- */
 
-void	pipes_func(t_struct *data, int mode);
+void	pipes_func(t_struct *data, int mode, int fd[2]);
 void	builtin_pipe(t_struct *data);
-void	mode2_pipe(t_struct *data);
-void	mode1_pipe(t_struct *data);
-void	mode0_pipe(t_struct *data);
+void	mode2_pipe(t_struct *data, int fd[2]);
+void	mode1_pipe(t_struct *data, int fd[2]);
+void	mode0_pipe(t_struct *data, int fd[2]);
 
 /* ---- SIGNALS ---- */
 
@@ -132,6 +133,7 @@ char	*save_words(char *str, int *i);
 
 char	**ft_split2(const char *s, char c);
 int		check_quotes(const char *str, int i);
+int		free_memory(char **split);
 
 /* ---- ERROR ---- */
 

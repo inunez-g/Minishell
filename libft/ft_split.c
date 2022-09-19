@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: inunez-g <inunez-g@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 10:57:29 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/07/22 11:57:19 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/18 17:19:52 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,13 @@
 
 int	free_memory(char **split)
 {
-	while (*split)
+	int	i;
+
+	i = 0;
+	while (split[i])
 	{
-		free(*split);
-		(*split)++;
+		free(split[i]);
+		i++;
 	}
 	free(split);
 	return (0);

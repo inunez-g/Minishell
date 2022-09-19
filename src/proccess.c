@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:35:54 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/17 19:10:00 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/18 19:09:51 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int commands_func(t_struct *data)
 		}
 		else
 		{
-			//printf("HOLA\n");
 			execve(ft_strjoin(path[i],command), data->cmd, data->env);
 		}
 	}
@@ -79,32 +78,45 @@ void    executions_func(t_struct *data, int mode)
 {
     int pid;
     int status;
+	int	fd[2];
 
-    if (activation_func(data, mode))
-    {
-		pipe(data->fd);
-        pid = fork();
-        if (pid == -1)
-            return ;
-        if (pid == 0)
-        {
-           	ft_outfile(data);
+ 	//if (activation_func(data, mode))
+    //{
+		pipe(fd);
+		pid = fork();
+    	if (pid == -1)
+		    return ;
+		if (pid == 0)
+		{
+			close(fd[0]);
+			g_proccess = 2;
+			ft_outfile(data);
 			ft_infile(data);
-			pipes_func(data, mode);;
+			ft_putnbr_fd(mode, 0);
+			pipes_func(data, mode, fd);
+			//write (0, "pipe\n", 5);
 			if (!builtins(data, 1))
 	    		commands_func(data);
 			exit (0);
-        }
-        else
-        {
+		}
+		else
+		{
             waitpid(pid, &status, 0);
-			close(data->fd[1]);
+			//write (0, "2pipe\n", 6);;
+			g_proccess = 1;
 			data->status = WEXITSTATUS(status);
-			if (data->inpipe != -1)
-				close(data->inpipe);
-			data->inpipe = data->fd[0];
+			//if (data->inpipe != -1)
+			//	close(data->inpipe);
+			//dup2(data->fd[0], data->inpipe);//data->inpipe = data->fd[0];
+			close(fd[1]);
+			dup2(data->inpipe, fd[0]);
+			close((fd[0]));
+			data->inpipe = fd[0];
+			//if (mode == 2 || mode == 3)
+			//	close(data->inpipe);
+			//close(data->fd[0]);
 			data->fd_outfile = -1;
 			data->fd_infile = -1;
         }
-    }
+ //   }
 }

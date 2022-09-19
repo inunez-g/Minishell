@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:29:14 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/17 19:10:08 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/18 17:31:29 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	input(t_struct *data, char *str)
 			prepare_data(data, cmd[i], 1);
 		i++;
 	}
+	free_memory(cmd);
 }
 
 void	mallocs(t_struct *data, char *str)
@@ -40,10 +41,12 @@ void	mallocs(t_struct *data, char *str)
 	data->cmd = (char **)malloc(sizeof(char *) * (check_nbr_cmd(str) + 1));
 	if (!data->cmd)
 		error_free("Malloc error", data);
+	data->cmd[check_nbr_cmd(str)] = NULL;
 	data->infile = (char **)malloc(sizeof(char *)
 			* (check_nbr_pointers(str, 60) + 1));
 	if (!data->infile)
 		error_free("Malloc error", data);
+	data->cmd[check_nbr_pointers(str, 60)] = NULL;
 	data->infile_modes = (int *)malloc(sizeof(int)
 			* check_nbr_pointers(str, 60));
 	if (!data->infile_modes)
@@ -52,6 +55,7 @@ void	mallocs(t_struct *data, char *str)
 			* (check_nbr_pointers(str, 62) + 1));
 	if (!data->outfile)
 		error_free("Malloc error", data);
+	data->outfile[check_nbr_pointers(str, 62)] = NULL;
 	data->outfile_modes = (int *)malloc(sizeof(int)
 			* check_nbr_pointers(str, 62));
 	if (!data->outfile_modes)
@@ -98,6 +102,11 @@ void	prepare_data(t_struct *data, char *str, int mode)
 	save_cmd(data, str);
 	expand_all(data);
 	executions_func(data, mode);
+	free_memory(data->cmd);
+	free_memory(data->infile);
+	free_memory(data->outfile);
+	free(data->infile_modes);
+	free(data->outfile_modes);
 }
 
 char	*clean_path_func(char *path)

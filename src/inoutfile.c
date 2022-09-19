@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:41:26 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/17 19:10:11 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/18 17:13:36 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void    ft_infile(t_struct *data)
         if (data->infile_modes[i] == 1)
 		{
             fd = open(data->infile[i], O_RDONLY, 0644);
+			if (fd == -1)
+				error2(data, data->infile[i], 1, g_proccess == 2);
 			if (data->infile[i + 1] == NULL)
             	data->fd_infile = fd;
 		}

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:04:59 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/17 19:10:32 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/18 17:29:21 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,15 @@ int	env_func(t_struct data, int	mode)
 
 int	pwd_func(t_struct data, int	mode)
 {
-	int	pos;
+	char	path[1024];
 
 	if (!strncmp_ms(data.cmd[0], "pwd") && ft_strlen(data.cmd[0]) == 3)
 	{
 		if (mode == 0)
 			return (1);
-		pos = super_strncmp(data.env, "PWD=", 4);
-		if (pos != -1)
-			printf("%s\n", data.env[pos] + 4);
+		
+        printf("%s\n", getcwd(path, 1024));
+        exit(0);
 		return (1);
 	}
 	return (0);
@@ -92,10 +92,12 @@ int	cd_func(t_struct *data, int	mode)
 
 	if (!strncmp_ms(data->cmd[0], "cd"))
 	{
-		if (mode == 0)
+		if (mode == 0 || data->cmd[1] == NULL)
 			return (1);
 		path = data->cmd[1];
 		pos = super_strncmp(data->env, "PWD=", 4);
+		if (pos == -1)
+		
 		if (path[0] != '/')
 		{
 			final_path = cd_func_body(data, pos);
