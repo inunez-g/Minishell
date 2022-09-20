@@ -18,19 +18,30 @@ void	input(t_struct *data, char *str)
 	char	**cmd;
 
 	cmd = ft_split2(str, '|');
+	i = -1;
+	while(cmd[++i]);
+	data->total_cmds = i;	
+	if (data->total_cmds == -1)
+		data->total_cmds = 0;
+	
 	i = 0;
+	//if (data->total_cmds > 1)
+	data->fd = malloc (sizeof(int) * 2);
+	//data->inpipe = malloc(sizeof(int) *1);
+	data->inpipe = 3;
+	pipe(data->fd);
 	while (cmd[i])
 	{
 		data->fd_infile = -1;
 		data->fd_outfile = -1;
 		if (super_strlen(cmd) == 1)
-			prepare_data(data, cmd[i], 3);
+			prepare_data(data, cmd[i], 3, i);
 		else if (super_strlen(cmd) == 1 || i == super_strlen(cmd) - 1)
-			prepare_data(data, cmd[i], 2);
+			prepare_data(data, cmd[i], 2, i);
 		else if (i == 0)
-			prepare_data(data, cmd[i], 0);
+			prepare_data(data, cmd[i], 0, i);
 		else
-			prepare_data(data, cmd[i], 1);
+			prepare_data(data, cmd[i], 1, i);
 		i++;
 	}
 	free_memory(cmd);
@@ -90,9 +101,9 @@ void	expand_all(t_struct *data)
 	}
 }
 
-void	prepare_data(t_struct *data, char *str, int mode)
+void	prepare_data(t_struct *data, char *str, int mode, int command_nbr)
 {
-	data->inpipe = -1;
+	//data->inpipe = -1;
 	data->cmd = NULL;
 	data->infile = NULL;
 	data->outfile = NULL;
@@ -101,7 +112,7 @@ void	prepare_data(t_struct *data, char *str, int mode)
 	save_in_outfiles(data, str, 62);
 	save_cmd(data, str);
 	expand_all(data);
-	executions_func(data, mode);
+	executions_func(data, mode, command_nbr);
 	free_memory(data->cmd);
 	free_memory(data->infile);
 	free_memory(data->outfile);

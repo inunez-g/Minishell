@@ -26,7 +26,7 @@ static void	init_data(struct sigaction *sa, t_struct *data, char **env)
 {
 	sa->sa_flags = 0; 
     sa->sa_mask = 0;
-    rl_catch_signals = 0;
+    //rl_catch_signals = 0;
 	sa->sa_sigaction = sighandler;
 	sigaction(SIGINT, sa, NULL);
 	sigaction(SIGQUIT, sa, NULL);

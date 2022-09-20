@@ -19,7 +19,7 @@ int	super_strncmp(char **str1, char *str2, int n)
 	i = 0;
 	while (str1[i] != NULL)
 	{
-		if (!strncmp(str1[i], str2, n))
+		if (!ft_strncmp(str1[i], str2, n))
 			return (i);
 		i++;
 	}
