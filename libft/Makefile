@@ -6,7 +6,7 @@
 #    By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/22 18:07:30 by unez-g            #+#    #+#              #
-#    Updated: 2022/09/17 20:02:25 by ecamara          ###   ########.fr        #
+#    Updated: 2022/09/20 11:15:26 by ecamara          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ SRC =	ft_isalpha.c\
 		ft_putstr_fd.c\
 		ft_putendl_fd.c\
 		ft_putnbr_fd.c\
-		
 
 B_SRC =	ft_lstnew.c\
 		ft_lstadd_front.c\
@@ -64,7 +63,7 @@ B_OBJS = $(B_SRC:.c=.o)
 
 CC =	gcc
 
-CFLAGS =	-Werror -Wextra -Wall -g
+CFLAGS = -Werror -Wextra -Wall -g
 
 LIB = 	ar rc
 
@@ -79,9 +78,7 @@ $(NAME):	$(OBJS)
 	$(CC) $(CFLAGS) -c $(SRC) $(B_SRC)
 
 bonus: $(B_OBJS)
-	$(LIB) $(NAME) $^
-
-
+	$(LIB) $(NAME) $(B_OBJS)
 
 clean:
 	rm -f $(OBJS) $(B_OBJS)

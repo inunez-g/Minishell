@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:51:26 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/18 17:56:57 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 18:29:28 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,13 @@ int main(int argc, char **argv, char **env)
 void	write_pipe(int fd)
 {
 	char c;
-	int	size;
-
-	size = 0;
-	do
+	
+	while (1)
 	{
-		write(0, &c, size);
-		size = read(fd, &c, 1);
-		ft_putnbr_fd(size, 0);
-	}while (size ==1);
+		int i = read(fd, &c, 1);
+		//printf("[%d]", i);
+		if (i == 0 || i == -1)
+			break ;
+		write (0, &c, 1);
+	}
 }

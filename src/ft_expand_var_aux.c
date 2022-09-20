@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:30:03 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/17 20:01:28 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 19:18:53 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,28 @@ int	count_dollar(char *str)
 {
 	int	i;
 	int	counter;
+	int	check;
 
 	counter = 1;
 	i = 0;
+	check = 0;
 	while(str[i])
 	{
-		if (!ft_isalnum(str[i]) && i != 0)
+		if ((!ft_isalnum(str[i]) && str[i] != '_') && i != 0)
 		{
 			counter++;
 			i++;
-			ft_mega_pass(str, &i, "$-+@#.,;: '=");
+			check = 1;
 		}
 		else
+		{
 			i++;
+			if (check == 1)
+			{
+				counter++;
+				check = 0;
+			}
+		}
 	}
 	return (counter);
 }

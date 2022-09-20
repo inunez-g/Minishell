@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/18 19:02:59 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 19:07:18 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ void	pass_spaces(char *str, int *i);
 void	pass_dollar(char *str, int *i);
 void	ft_mega_pass(char *str, int *i, char *characters);
 char	*save_words(char *str, int *i);
+void	pass(char *str, int *i);
 
 /* ---- SPLIT ---- */
 

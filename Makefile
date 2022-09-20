@@ -20,7 +20,7 @@ CSRC =	src/main.c						\
 
 OSRC = $(CSRC:.c=.o)
 
-CFLAGS = -Wall -Werror -Wextra -g#-g3 -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g3 -fsanitize=address
 LDFLAGS = -lreadline -L/Users/$(USER)/.brew/opt/readline/lib/
 CPPFLAGS= -I/Users/$(USER)/.brew/opt/readline/include
 GCCCMD = gcc

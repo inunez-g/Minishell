@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:29:14 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/18 17:31:29 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 19:34:29 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	expand_all(t_struct *data)
 
 void	prepare_data(t_struct *data, char *str, int mode)
 {
-	data->inpipe = -1;
+	//data->inpipe = -1;
 	data->cmd = NULL;
 	data->infile = NULL;
 	data->outfile = NULL;
