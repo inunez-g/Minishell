@@ -35,7 +35,7 @@ void	builtin_pipe(t_struct *data)
 		dup2(data->fd_outfile, STDOUT_FILENO);
 		close(data->fd_outfile);
 	}
-	builtins(data, 1);
+	//builtins(data, 1);
 	close(data->inpipe);
 	close(data->fd[0]);
 	close(data->fd[1]);
@@ -45,6 +45,7 @@ void	builtin_pipe(t_struct *data)
 
 void	mode2_pipe(t_struct *data, int fd[2])
 {
+	printf("Doble command\n");
 	//printf("mode2\n");
 	//close(data->fd[1]);
 	//if (data->fd_infile != -1)
@@ -53,21 +54,28 @@ void	mode2_pipe(t_struct *data, int fd[2])
 	dup2(data->inpipe, STDIN_FILENO);
 //	if (data->fd_outfile != -1)
 //		dup2(data->fd_outfile, STDOUT_FILENO);
-	close(data->inpipe);
+	//close(data->inpipe);
 	close(fd[1]);
+	close(fd[0]);
 }
 
 void mode1_pipe(t_struct *data, int fd[2])
 {
 	printf("mode1\n");
-	dup2(data->fd_infile, STDIN_FILENO);
+	//dup2(data->fd_infile, STDIN_FILENO);
+	/*
 	if (data->fd_outfile != -1)
 	{
         dup2(data->fd_outfile, STDOUT_FILENO);
 		close(data->fd_outfile);
 	}
     else
-        dup2(fd[1], STDOUT_FILENO);
+	*/
+	dup2(data->inpipe,0);
+    dup2(fd[1], STDOUT_FILENO);
+	
+	close(fd[1]);
+	close(fd[0]);
 }
 
 void	mode0_pipe(t_struct *data, int fd[2])
@@ -79,6 +87,6 @@ void	mode0_pipe(t_struct *data, int fd[2])
 //	if (data->fd_outfile != -1)
 //		dup2(data->fd_outfile, STDOUT_FILENO);
 //	else
-		dup2(fd[1], STDOUT_FILENO);
+	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
 }

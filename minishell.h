@@ -36,11 +36,12 @@ typedef struct s_struct
 	char **outfile;
 	int *outfile_modes;
 	char **env;
-	int fd[2];
+	int *fd;
 	int inpipe;
 	int fd_infile;
 	int fd_outfile;
 	int	status;
+	int total_cmds;
 }t_struct;
 
 void	write_pipe(int fd);
@@ -51,7 +52,7 @@ int export_helper(char *str);
 int 	builtins(t_struct *data, int mode);
 int 	commands_func(t_struct *data);
 int		activation_func(t_struct *data, int mode);
-void	executions_func(t_struct *data, int mode);
+void	executions_func(t_struct *data, int mode, int command_nbr);
 
 /* --- INOUTFILES ---- */
 
@@ -66,7 +67,7 @@ void	ft_new_line(void);
 /* ----- INPUT ------ */
 
 void	input(t_struct *data, char *str);
-void	prepare_data(t_struct *data, char *str, int mode);
+void	prepare_data(t_struct *data, char *str, int mode, int command_nbr);
 void	mallocs(t_struct *data, char *str);
 void	expand_all(t_struct *data);
 char	*clean_path_func(char *path);

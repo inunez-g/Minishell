@@ -44,7 +44,7 @@ int commands_func(t_struct *data)
 			exit (0);
 	command = ft_strjoin("/", data->cmd[0]);
 	pos = super_strncmp(data->env, "PATH=", 5);
-	path= ft_split(data->env[pos] + 5, ':');
+	path = ft_split(data->env[pos] + 5, ':');
 	while(path[i] != NULL)
 	{
 		final_path = ft_strjoin(path[i], command);
@@ -55,6 +55,7 @@ int commands_func(t_struct *data)
 		}
 		else
 		{
+			printf("%s %s\n",path[i],command);
 			execve(ft_strjoin(path[i],command), data->cmd, data->env);
 		}
 	}
@@ -74,33 +75,68 @@ int	activation_func(t_struct *data, int mode)
 	return (0);
 }
 
-void    executions_func(t_struct *data, int mode)
+void    executions_func(t_struct *data, int mode, int command_nbr)
 {
     int pid;
     int status;
-	int	fd[2];
+	//int	fd[2];
 
+	(void) mode;
  	//if (activation_func(data, mode))
     //{
-		pipe(fd);
+		
+		//pipe(data->fd);
 		pid = fork();
     	if (pid == -1)
 		    return ;
 		if (pid == 0)
 		{
-			close(fd[0]);
+			//close(fd[0]);
 			g_proccess = 2;
-			ft_outfile(data);
-			ft_infile(data);
-			ft_putnbr_fd(mode, 0);
-			pipes_func(data, mode, fd);
+			//ft_outfile(data);
+			//ft_infile(data);
+			//ft_putnbr_fd(mode, 0);
+			//pipes_func(data, mode, fd);
 			//write (0, "pipe\n", 5);
-			if (!builtins(data, 1))
-	    		commands_func(data);
-			exit (0);
+			//if (!builtins(data, 1))
+	    	//printf("Command nbr %d\n", command_nbr);
+			if (data->total_cmds == 0)
+			{
+				printf("Entro en comando 0");
+				dup2(data->fd[1], 1);
+				close(data->fd[0]);
+				close(data->fd[1]);
+			}
+			else if (command_nbr == data->total_cmds - 1)
+			{
+				if (data->total_cmds == 2)
+				{
+					printf("Entro en comando 2");
+					dup2(data->fd[0],0);
+					close(data->fd[1]);
+					close(data->fd[0]);
+				}
+				else
+				{
+					dup2(data->inpipe, 0);
+					close(data->fd[1]);
+					close(data->fd[0]);
+				}
+			}
+			else
+			{
+				dup2(data->inpipe, 0);
+				dup2(data->fd[1], 1);
+				close(data->fd[0]);
+				close(data->fd[1]);
+			}
+			commands_func(data);
+			//exit (0);
 		}
 		else
 		{
+			if (data->total_cmds > 1)
+				close(data->fd[1]);
             waitpid(pid, &status, 0);
 			//write (0, "2pipe\n", 6);;
 			g_proccess = 1;
@@ -108,15 +144,22 @@ void    executions_func(t_struct *data, int mode)
 			//if (data->inpipe != -1)
 			//	close(data->inpipe);
 			//dup2(data->fd[0], data->inpipe);//data->inpipe = data->fd[0];
-			close(fd[1]);
-			dup2(data->inpipe, fd[0]);
-			close((fd[0]));
-			data->inpipe = fd[0];
+			//close(fd[1]);
+			if(data->total_cmds > 2)
+			{
+				data->inpipe = dup(data->fd[0]);
+				close(data->fd[0]);
+				pipe(data->fd);
+			}
+			
+			//data->inpipe = fd[0];
 			//if (mode == 2 || mode == 3)
 			//	close(data->inpipe);
 			//close(data->fd[0]);
-			data->fd_outfile = -1;
-			data->fd_infile = -1;
+			//data->fd_outfile = -1;
+			//data->fd_infile = -1;
         }
+		//close(data->fd[0]);
+		//close(data->fd[1]);
  //   }
 }
