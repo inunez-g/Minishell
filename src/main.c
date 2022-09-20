@@ -6,37 +6,37 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:51:26 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 18:29:28 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 19:59:21 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int export_helper(char *str)
+int	export_helper(char *str)
 {
 	int	i;
 
 	i = 0;
 	while (str[i] != '\0' && str[i] != '=')
 		i++;
-	return(i);
+	return (i);
 }
 
 static void	init_data(struct sigaction *sa, t_struct *data, char **env)
 {
-	sa->sa_flags = 0; 
-    sa->sa_mask = 0;
-    rl_catch_signals = 0;
+	sa->sa_flags = 0;
+	sa->sa_mask = 0;
+	rl_catch_signals = 0;
 	sa->sa_sigaction = sighandler;
 	sigaction(SIGINT, sa, NULL);
 	sigaction(SIGQUIT, sa, NULL);
 	data->env = super_dup(env);
 }
 
-int main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **env)
 {
 	char				*str;
-	t_struct 			data;
+	t_struct			data;
 	struct sigaction	sa;
 
 	(void)argc;
@@ -61,15 +61,13 @@ int main(int argc, char **argv, char **env)
 	return (0);
 }
 
-
 void	write_pipe(int fd)
 {
-	char c;
+	char	c;
 	
 	while (1)
 	{
 		int i = read(fd, &c, 1);
-		//printf("[%d]", i);
 		if (i == 0 || i == -1)
 			break ;
 		write (0, &c, 1);

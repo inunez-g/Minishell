@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 17:26:42 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/20 19:41:46 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 20:00:08 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*strjoin_ms(char *str1, char *str2, int boo)
 	len2 = ft_strlen(str2);
 	final = (char *)malloc(len + len2 + 1);
 	i = -1;
-	while ( ++i < len && str1 != NULL)
+	while (++i < len && str1 != NULL)
 		final[i] = str1[i];
 	while (str2 != NULL && i - len < len2)
 	{
@@ -57,7 +57,7 @@ char	*strjoin_ms(char *str1, char *str2, int boo)
 
 char	*super_join(char **str)
 {
-	int	i;
+	int		i;
 	char	*final;
 
 	i = 0;
@@ -72,6 +72,7 @@ char	*super_join(char **str)
 	free(str);
 	return (final);
 }
+
 char	*substr_ms(char *s, unsigned int start, size_t	len)
 {
 	char	*final_str;

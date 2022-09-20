@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:29:14 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 19:34:29 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 20:01:13 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,21 +64,21 @@ void	mallocs(t_struct *data, char *str)
 
 void	expand_all(t_struct *data)
 {
-	char 	*temp;
+	char	*temp;
 	int		i;
 
 	i = -1;
 	while (data->cmd[++i] != NULL)
 	{
 		temp = expand_variables(data, data->cmd[i]);
-		free  (data->cmd[i]);
+		free (data->cmd[i]);
 		data->cmd[i] = temp;
 	}
 	i = -1;
 	while (data->infile[++i] != NULL)
 	{
 		temp = expand_variables(data, data->infile[i]);
-		free  (data->infile[i]);
+		free (data->infile[i]);
 		data->infile[i] = temp;
 	}
 	i = -1;
@@ -92,7 +92,6 @@ void	expand_all(t_struct *data)
 
 void	prepare_data(t_struct *data, char *str, int mode)
 {
-	//data->inpipe = -1;
 	data->cmd = NULL;
 	data->infile = NULL;
 	data->outfile = NULL;

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:35:54 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/20 19:42:17 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 19:57:11 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ int builtins(t_struct *data, int mode)
 	if (echo_func(*data, mode))
 		return (1);
 	else if (exit_func(*data, mode))
-		return(1);
+		return (1);
 	else if (env_func(*data, mode))
-		return(1);
+		return (1);
 	else if (pwd_func(*data, mode))
-		return(1);
+		return (1);
 	else if (cd_func(data, mode))
 		return (1);
 	else if (export_func(data, mode))
-		return(1);
+		return (1);
 	else if (unset_func(data, 0, mode))
-		return(1);
-	return(0);
+		return (1);
+	return (0);
 }
 
 int commands_func(t_struct *data)
@@ -41,11 +41,11 @@ int commands_func(t_struct *data)
 
 	i = 0;
 	if (data->cmd[0] == NULL)
-			exit (0);
+		exit (0);
 	command = ft_strjoin("/", data->cmd[0]);
 	pos = super_strncmp(data->env, "PATH=", 5);
 	path= ft_split(data->env[pos] + 5, ':');
-	while(path[i] != NULL)
+	while (path[i] != NULL)
 	{
 		final_path = ft_strjoin(path[i], command);
 		if (access(final_path, X_OK) == -1)
@@ -54,9 +54,7 @@ int commands_func(t_struct *data)
 			i++;
 		}
 		else
-		{
 			execve(ft_strjoin(path[i],command), data->cmd, data->env);
-		}
 	}
 	write(1, "command not found\n", 18);
 	exit (0);
@@ -74,19 +72,17 @@ int	activation_func(t_struct *data, int mode)
 	return (0);
 }
 
-void    executions_func(t_struct *data, int mode)
+void	executions_func(t_struct *data, int mode)
 {
-    int pid;
-    int status;
+	int	pid;
+	int	status;
 
-	//int	fd[2];
-	//int	fd[2];
 	if (activation_func(data, mode))
 	{
 		pipe(data->fd);
 		pid = fork();
-    	if (pid == -1)
-		    return ;
+		if (pid == -1)
+			return ;
 		if (pid == 0)
 		{
 			g_proccess = 2;
@@ -120,7 +116,7 @@ void    executions_func(t_struct *data, int mode)
 					dup2(data->inpipe, 0);
 				if (data->fd_outfile != -1)
 				{
-       				dup2(data->fd_outfile, STDOUT_FILENO);
+					dup2(data->fd_outfile, STDOUT_FILENO);
 					close(data->fd_outfile);
 				}
 				else
@@ -139,24 +135,24 @@ void    executions_func(t_struct *data, int mode)
 					dup2(data->inpipe, 0);
 				if (data->fd_outfile != -1)
 				{
-       				dup2(data->fd_outfile, STDOUT_FILENO);
+					dup2(data->fd_outfile, STDOUT_FILENO);
 					close(data->fd_outfile);
 				}
 				close(data->fd[1]);
 			}
 			if (!builtins(data, 1))
-	    		commands_func(data);
+				commands_func(data);
 			exit (0);
 		}
 		else
 		{
 			close(data->fd[1]);
-            waitpid(pid, &status, 0);
+			waitpid(pid, &status, 0);
 			g_proccess = 1;
 			data->status = WEXITSTATUS(status);
 			data->inpipe = data->fd[0];
 			data->fd_outfile = -1;
 			data->fd_infile = -1;
-        }
-    }
+		}
+	}
 }

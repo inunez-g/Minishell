@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:41:26 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/18 17:13:36 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 20:03:15 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,30 @@ void	ft_outfile(t_struct *data)
 			close(fd);
 		i++;
 	}
-    //moverse outfile
-    //mode append
-    //open
-    //si es ultimo guardas fd en data->fd_outfile
 }
 
 void    ft_infile(t_struct *data)
 {
-    int		i;
-    int		fd;
-	int 	fd2[2];
+	int		i;
+	int		fd;
+	int		fd2[2];
 	char	*temp;
 	char	*str;
 
 	str = NULL;
 	temp = NULL;
-    i = 0;
-    while (data->infile[i])
-    {
-        if (data->infile_modes[i] == 1)
+	i = 0;
+	while (data->infile[i])
+	{
+		if (data->infile_modes[i] == 1)
 		{
-            fd = open(data->infile[i], O_RDONLY, 0644);
+			fd = open(data->infile[i], O_RDONLY, 0644);
 			if (fd == -1)
 				error2(data, data->infile[i], 1, g_proccess == 2);
 			if (data->infile[i + 1] == NULL)
-            	data->fd_infile = fd;
+				data->fd_infile = fd;
 		}
-        else
+		else
 		{
 			while (1)
 			{
@@ -76,6 +72,6 @@ void    ft_infile(t_struct *data)
 			}
 			close(fd2[1]);
 		}
-        i++;
-    }
+		i++;
+	}
 }

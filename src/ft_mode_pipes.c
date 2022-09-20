@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:46:37 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 18:51:49 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 20:09:11 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void	pipes_func(t_struct *data, int mode, int fd[2])
 
 void	builtin_pipe(t_struct *data)
 {
-	//printf("builtin_pipe\n");
-	//printf
 	if (data->fd_infile != -1)
 	{
 		dup2(data->fd_infile, STDIN_FILENO);
@@ -37,44 +35,29 @@ void	builtin_pipe(t_struct *data)
 		close(data->fd_outfile);
 	}
 	builtins(data, 1);
-	//close(data->inpipe);
-	//close(data->fd[0]);
-	//close(data->fd[1]);
 	dup2(0, STDOUT_FILENO);
-	dup2(0, STDIN_FILENO);
-	
+	dup2(0, STDIN_FILENO);	
 }
 
 void	mode2_pipe(t_struct *data, int fd[2])
 {
 	ft_putnbr_fd(4567890, 2);
-	//printf("mode2\n");
-	//close(data->fd[1]);
-	//if (data->fd_infile != -1)
-	//	dup2(data->fd_infile, STDIN_FILENO);
-//	else
 	(void)fd;
 	dup2(data->inpipe, 0);
 	close(fd[1]);
-	//close(data->inpipe);
 	close (fd[0]);
-//	if (data->fd_outfile != -1)
-//		dup2(data->fd_outfile, STDOUT_FILENO);
-	//close(data->inpipe);
-	//close(fd[1]);
 }
 
 void mode1_pipe(t_struct *data, int fd[2])
 {
-	printf("mode1\n");
 	dup2(data->fd_infile, STDIN_FILENO);
 	if (data->fd_outfile != -1)
 	{
-        dup2(data->fd_outfile, STDOUT_FILENO);
+		dup2(data->fd_outfile, STDOUT_FILENO);
 		close(data->fd_outfile);
 	}
-    else
-        dup2(fd[1], STDOUT_FILENO);
+	else
+		dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
 	close(fd[0]);
 }

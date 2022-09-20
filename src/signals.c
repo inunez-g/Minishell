@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:43:05 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/18 17:12:10 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 19:53:13 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,4 @@ void	sighandler(int signal, siginfo_t *a, void *b)
 		printf("\n");
 		rl_on_new_line();
 	}
-	
 }

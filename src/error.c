@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 18:44:30 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/18 17:10:23 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 20:16:29 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	error4(t_struct *data, char c, int mode)
 	data->status = mode;
 }
 
-void    error5(t_struct *data, int mode)
+void	error5(t_struct *data, int mode)
 {
 	write(1, "bash: syntax error near unexpected token `>'\n", 45);
-    data->status = mode;
+	data->status = mode;
 }
 
 int	check_export(t_struct *data, char *str, int mode)
@@ -45,7 +45,6 @@ int	check_export(t_struct *data, char *str, int mode)
 	int	i;
 
 	i = 0;
-//	printf("check[%s]\n", str);
 	if (str[0] != '_' && !ft_isalpha(str[0]))
 	{
 		error3(data, data->cmd[0], str, 1);

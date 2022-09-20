@@ -6,42 +6,42 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:16:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/17 19:10:15 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 20:05:56 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int     check_quotes(const char *str, int i)
+int	check_quotes(const char *str, int i)
 {
-    if (str[i] == 34)
-    {
-        while (str[++i] && str[i] != 34)
-            continue ;
-    }
-    else if (str[i] == 39)
-    {
-        while (str[++i] && str[i] != 39)
-            continue ;
-    }
-    return (i);
+	if (str[i] == 34)
+	{
+		while (str[++i] && str[i] != 34)
+			continue ;
+	}
+	else if (str[i] == 39)
+	{
+		while (str[++i] && str[i] != 39)
+			continue ;
+	}
+	return (i);
 }
 
-int free_memory2(char **split)
+int	free_memory2(char **split)
 {
-    while (*split)
-    {
-        free(*split);
-        (*split)++;
-    }
-    free(split);
-    return (0);
+	while (*split)
+	{
+		free(*split);
+		(*split)++;
+	}
+	free(split);
+	return (0);
 }
 
-int count_words2(const char *s, char c)
+int	count_words2(const char *s, char c)
 {
-	int nbr_words;
-	int i;
+	int	nbr_words;
+	int	i;
 	int	check;
 
 	nbr_words = 0;
@@ -62,7 +62,7 @@ int count_words2(const char *s, char c)
 	return (nbr_words);
 }
 
-char    **save_word2(const char *s, char c, char **split, int a)
+char	**save_word2(const char *s, char c, char **split, int a)
 {
 	int	r;
 	int	counter;
@@ -92,21 +92,21 @@ char    **save_word2(const char *s, char c, char **split, int a)
 	return (split);
 }
 
-char    **ft_split2(const char *s, char c)
+char	**ft_split2(const char *s, char c)
 {
-    char    **split;
-    int     nbr_words;
-    int     a;
+	char	**split;
+	int		nbr_words;
+	int		a;
 
-    a = 0;
-    if (!s)
-        return (0);
-    else
-    {
-        nbr_words = count_words2(s, c);
-        split = (char **)malloc((nbr_words + 1) * sizeof(char *));
-        if (!split)
-            return (0);
-    }
-    return (save_word2(s, c, split, a));
+	a = 0;
+	if (!s)
+		return (0);
+	else
+	{
+		nbr_words = count_words2(s, c);
+		split = (char **)malloc((nbr_words + 1) * sizeof(char *));
+		if (!split)
+			return (0);
+	}
+	return (save_word2(s, c, split, a));
 }

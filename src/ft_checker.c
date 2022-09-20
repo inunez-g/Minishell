@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 18:31:12 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/17 19:10:27 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 20:15:40 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,42 +39,42 @@ int	pikito_checker(t_struct *data, char *str, int i, char c)
 int	quotes_pikito_checker(t_struct *data, char *str)
 {
 	int	i;
-	int helper;
-	
-	i = 0;
-	while (str[i] != '\0')
-    {
-        if (str[i] == '\"' || str[i] == '\'')
-        {
-            helper = str[i];
-            pass_quotes(str, &i, str[i]);
-            if (str[i] == '\0')
-            {
-                error4(data, helper, 258);
-                return (258);
-            }
-        }
-        if (str[i] == '<' || str[i] == '>')
-        {
-            i = pikito_checker(data, str, i, str[i]);
-            if (i == 258)
-                return (258);
-        }
-        i++;
-    }
-	return (0);
-}
-
-int	doble_pipe_checker(t_struct *data, char *str)
-{
-	int i;
+	int	helper;
 
 	i = 0;
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\"' || str[i] == '\'')
-      	{
-            pass_quotes(str, &i, str[i]);
+		{
+			helper = str[i];
+			pass_quotes(str, &i, str[i]);
+			if (str[i] == '\0')
+			{
+				error4(data, helper, 258);
+				return (258);
+			}
+		}
+		if (str[i] == '<' || str[i] == '>')
+		{
+			i = pikito_checker(data, str, i, str[i]);
+			if (i == 258)
+				return (258);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	doble_pipe_checker(t_struct *data, char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == '\"' || str[i] == '\'')
+		{
+			pass_quotes(str, &i, str[i]);
 			i++;
 		}
 		if (str[i] == '|')
@@ -102,22 +102,24 @@ int	pikito_args_checker(t_struct *data, char *str)
 	while (str[i] != '\0')
 	{
 		if (str[i] == '\"' || str[i] == '\'')
-        {
-            pass_quotes(str, &i, str[i]);
-            i++;
-        }
+		{
+			pass_quotes(str, &i, str[i]);
+			i++;
+		}
 		if (str[i] == '<' || str[i] == '>')
 		{
 			i++;
 			if (str[i] == '<' || str[i] == '>')
 				i++;
 			pass_spaces(str, &i);
-			if (str[i] == '<' || str[i] == '>' || str[i] == '\0' || str[i] == '|')
+			if (str[i] == '<' || str[i] == '>' || str[i] == '\0'
+				|| str[i] == '|')
 			{
-				printf("bash: syntax error near unexpected token `%c'\n", str[i]);
-                data->status = 258;
-                return (258);
-            }
+				printf("bash: syntax error near unexpected token `%c'\n",
+					str[i]);
+				data->status = 258;
+				return (258);
+			}
 		}
 		if (str[i] != '\"' || str[i] != '\'')
 			i++;

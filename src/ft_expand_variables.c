@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:15:58 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 19:38:04 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/20 20:12:11 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@ char	**set_words(char **final, char *str)
 	while (str[i])
 	{
 		if (str[i] != '\"' && str[i] != '\'')
-        {
+		{
 			index = i;
-            while (str[i] != '\"' && str[i] != '\'' && str[i] != '\0')
-                i++;
+			while (str[i] != '\"' && str[i] != '\'' && str[i] != '\0')
+				i++;
 			final[nb_words] = ft_substr(str,index, i - index);
-            nb_words++;
-        }
-        else
-        {
+			nb_words++;
+		}
+		else
+		{
 			index = i;
-            i = check_quotes(str, i) + 1;
+			i = check_quotes(str, i) + 1;
 			final[nb_words] = ft_substr(str, index, i - index);
-	        nb_words++;
-	    }
+			nb_words++;
+		}
 	}
 	return (final);
 }
@@ -53,8 +53,6 @@ char	**split_words(char *str)
 	final[nb_words] = NULL;
 	return (set_words(final, str));
 }
-
-
 
 char	*ft_dollar(t_struct *data, char *str)
 {
@@ -87,19 +85,18 @@ char	*expand_var(t_struct *data, char *word)
 	int		len;
 
 	if (word[0] == '$')
-    {
+	{
 		word = strjoin_ms(substr_ms(word, 1, ft_strlen(word + 1)), "=", 0);
 		line = super_strncmp(data->env, word, ft_strlen(word));
 		len = ft_strlen(word);
 		free(word);
 		if (line != -1)
 			return (ft_substr(data->env[line], len, ft_strlen(data->env[line]) - len));
-    }
+	}
 	else
 		return (word);
-    return (NULL);
+	return (NULL);
 }
-
 
 char	*expand_variables(t_struct *data, char *str)
 {
@@ -107,7 +104,6 @@ char	*expand_variables(t_struct *data, char *str)
 	char	**word;
 
 	word = split_words(str);
-	//super_printf(word);
 	i = 0;
 	while (word[i] != NULL)
 	{
