@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 19:07:18 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/21 18:01:40 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,26 @@ int	g_proccess;
 
 typedef struct s_struct
 {
-	char **cmd;
-	char **infile;
-	int *infile_modes;
-	char **outfile;
-	int *outfile_modes;
-	char **env;
-	int fd[2];
-	int inpipe;
-	int fd_infile;
-	int fd_outfile;
-	int	status;
+	char	**cmd;
+	char	**infile;
+	int		*infile_modes;
+	char	**outfile;
+	int		*outfile_modes;
+	char	**env;
+	int		fd[2];
+	int		inpipe;
+	int		fd_infile;
+	int		fd_outfile;
+	int		status;
 }t_struct;
 
 void	write_pipe(int fd);
-int export_helper(char *str);
+int		export_helper(char *str);
 
 /* ---- PROCCESS ---- */
 
-int 	builtins(t_struct *data, int mode);
-int 	commands_func(t_struct *data);
+int		builtins(t_struct *data, int mode);
+int		commands_func(t_struct *data);
 int		activation_func(t_struct *data, int mode);
 void	executions_func(t_struct *data, int mode);
 
@@ -96,16 +96,15 @@ int		count_dollar(char *str);
 
 int		echo_func(t_struct data, int mode);
 int		exit_func(t_struct data, int mode);
-int		env_func(t_struct data, int	mode);
-int		pwd_func(t_struct data, int	mode);
-int		cd_func(t_struct *data, int	mode);
+int		env_func(t_struct data, int mode);
+int		pwd_func(t_struct data, int mode);
+int		cd_func(t_struct *data, int mode);
 
 char	*cd_func_body(t_struct *data, int pos);
 int		unset_func_body(t_struct *data, int i, int line);
 int		unset_func(t_struct *data, int helper, int mode);
 int		export_func_body(t_struct *data, int i);
 int		export_func(t_struct *data, int mode);
-
 
 /* --- MODES_PIPES --- */
 
@@ -156,7 +155,7 @@ int		super_strncmp(char **str1, char *str2, int n);
 
 int		check_nbr_pointers(char	*str, int type);
 void	save_in_outfiles(t_struct *data, char *str, int type);
-void    save_cmd(t_struct *data, char *str);
+void	save_cmd(t_struct *data, char *str);
 int		check_nbr_cmd(char *str);
 
 #endif

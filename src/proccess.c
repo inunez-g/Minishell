@@ -6,13 +6,13 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:35:54 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/20 19:57:11 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:16:59 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int builtins(t_struct *data, int mode)
+int	builtins(t_struct *data, int mode)
 {
 	if (echo_func(*data, mode))
 		return (1);
@@ -31,7 +31,7 @@ int builtins(t_struct *data, int mode)
 	return (0);
 }
 
-int commands_func(t_struct *data)
+int	commands_func(t_struct *data)
 {
 	char	*final_path;
 	char	**path;
@@ -44,7 +44,7 @@ int commands_func(t_struct *data)
 		exit (0);
 	command = ft_strjoin("/", data->cmd[0]);
 	pos = super_strncmp(data->env, "PATH=", 5);
-	path= ft_split(data->env[pos] + 5, ':');
+	path = ft_split(data->env[pos] + 5, ':');
 	while (path[i] != NULL)
 	{
 		final_path = ft_strjoin(path[i], command);
@@ -54,7 +54,7 @@ int commands_func(t_struct *data)
 			i++;
 		}
 		else
-			execve(ft_strjoin(path[i],command), data->cmd, data->env);
+			execve(ft_strjoin(path[i], command), data->cmd, data->env);
 	}
 	write(1, "command not found\n", 18);
 	exit (0);

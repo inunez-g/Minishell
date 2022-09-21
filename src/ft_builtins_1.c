@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:04:59 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/18 17:29:21 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/21 18:10:00 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ int	echo_func(t_struct data, int mode)
 	if (!strncmp_ms(data.cmd[0], "echo"))
 	{
 		if (mode == 0)
-				return (1);
-		if (data.cmd[1] != NULL && !strncmp_ms(data.cmd[1], "-n") && data.cmd[1][0] != '\0')
+			return (1);
+		if (data.cmd[1] != NULL && !strncmp_ms(data.cmd[1], "-n")
+			&& data.cmd[1][0] != '\0')
 			i = 2;
 		while (data.cmd[i] != NULL)
 		{
 			printf("%s", data.cmd[i++]);
-			if (data.cmd[i] != NULL || (data.cmd[i - 1][0] == '\0' && data.cmd[i]))
-			{
+			if (data.cmd[i] != NULL || (data.cmd[i - 1][0] == '\0'
+				&& data.cmd[i]))
 				printf(" ");
-			}
 		}
 		if (strncmp_ms(data.cmd[1], "-n") || data.cmd[1][0] == '\0')
 			printf("\n");
@@ -52,7 +52,7 @@ int	exit_func(t_struct data, int mode)
 	return (0);
 }
 
-int	env_func(t_struct data, int	mode)
+int	env_func(t_struct data, int mode)
 {
 	int	i;
 
@@ -68,7 +68,7 @@ int	env_func(t_struct data, int	mode)
 	return (0);
 }
 
-int	pwd_func(t_struct data, int	mode)
+int	pwd_func(t_struct data, int mode)
 {
 	char	path[1024];
 
@@ -76,15 +76,14 @@ int	pwd_func(t_struct data, int	mode)
 	{
 		if (mode == 0)
 			return (1);
-		
-        printf("%s\n", getcwd(path, 1024));
-        exit(0);
-		return (1);
+		printf("%s\n", getcwd(path, 1024));
+		exit(0);
+		//return (1);
 	}
 	return (0);
 }
 
-int	cd_func(t_struct *data, int	mode)
+int	cd_func(t_struct *data, int mode)
 {
 	char	*path;
 	char	*final_path;
@@ -96,8 +95,8 @@ int	cd_func(t_struct *data, int	mode)
 			return (1);
 		path = data->cmd[1];
 		pos = super_strncmp(data->env, "PWD=", 4);
-		if (pos == -1)
-		
+//		if (pos == -1)
+//		
 		if (path[0] != '/')
 		{
 			final_path = cd_func_body(data, pos);

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:15:58 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 20:12:11 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:12:12 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	**set_words(char **final, char *str)
 			index = i;
 			while (str[i] != '\"' && str[i] != '\'' && str[i] != '\0')
 				i++;
-			final[nb_words] = ft_substr(str,index, i - index);
+			final[nb_words] = ft_substr(str, index, i - index);
 			nb_words++;
 		}
 		else
@@ -91,7 +91,8 @@ char	*expand_var(t_struct *data, char *word)
 		len = ft_strlen(word);
 		free(word);
 		if (line != -1)
-			return (ft_substr(data->env[line], len, ft_strlen(data->env[line]) - len));
+			return (ft_substr(data->env[line], len,
+					ft_strlen(data->env[line]) - len));
 	}
 	else
 		return (word);

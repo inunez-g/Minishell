@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:51:26 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 19:59:21 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:17:10 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **env)
 void	write_pipe(int fd)
 {
 	char	c;
-	
+
 	while (1)
 	{
 		int i = read(fd, &c, 1);

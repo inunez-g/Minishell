@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:41:26 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/20 20:03:15 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:14:33 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_outfile(t_struct *data)
 	}
 }
 
-void    ft_infile(t_struct *data)
+void	ft_infile(t_struct *data)
 {
 	int		i;
 	int		fd;

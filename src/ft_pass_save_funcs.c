@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:02:27 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 20:07:26 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:13:53 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	pass_dollar(char *str, int *i)
 
 void	ft_mega_pass(char *str, int *i, char *characters)
 {
-	while (str[*i] != '\0' && ft_strchr(characters, str[*i])== 0
+	while (str[*i] != '\0' && ft_strchr(characters, str[*i]) == 0
 		&& str[*i] != 34 && str[*i] != ' ')
 		(*i)++;
 }
