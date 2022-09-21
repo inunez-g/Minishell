@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:15:58 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 18:12:12 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:45:13 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ char	*ft_dollar(t_struct *data, char *str)
 	while (str[i] != '\0')
 	{
 		index = i;
-		pass(str, &i);
 		if (!ft_isalnum(str[index]) && str[index] != '_')
 			i++;
+		pass(str, &i);
 		final[counter] = expand_var(data, ft_substr(str, index, i - index));
 		counter++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 18:01:40 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:55:50 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,11 @@ int		export_func(t_struct *data, int mode);
 
 /* --- MODES_PIPES --- */
 
-void	pipes_func(t_struct *data, int mode, int fd[2]);
+void	pipes_func(t_struct *data, int mode);
 void	builtin_pipe(t_struct *data);
-void	mode2_pipe(t_struct *data, int fd[2]);
-void	mode1_pipe(t_struct *data, int fd[2]);
-void	mode0_pipe(t_struct *data, int fd[2]);
+void	mode2_pipe(t_struct *data);
+void	mode1_pipe(t_struct *data);
+void	mode0_pipe(t_struct *data);
 
 /* ---- SIGNALS ---- */
 

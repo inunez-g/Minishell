@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:30:03 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/21 18:10:43 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:44:51 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,10 @@ int	count_dollar(char *str)
 		{
 			counter++;
 			i++;
-			check = 1;
 		}
 		else
 		{
 			i++;
-			if (check == 1)
-			{
-				counter++;
-				check = 0;
-			}
 		}
 	}
 	return (counter);

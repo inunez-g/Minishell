@@ -6,20 +6,20 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:46:37 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 18:12:58 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 18:59:14 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	pipes_func(t_struct *data, int mode, int fd[2])
+void	pipes_func(t_struct *data, int mode)
 {
 	if (mode == 0)
-		mode0_pipe(data, fd);
+		mode0_pipe(data);
 	else if (mode == 1)
-		mode1_pipe(data, fd);
+		mode1_pipe(data);
 	else if (mode == 2 || mode == 3)
-		mode2_pipe(data, fd);
+		mode2_pipe(data);
 }
 
 void	builtin_pipe(t_struct *data)
@@ -36,50 +36,59 @@ void	builtin_pipe(t_struct *data)
 	}
 	builtins(data, 1);
 	dup2(0, STDOUT_FILENO);
-	dup2(0, STDIN_FILENO);	
+	dup2(0, STDIN_FILENO);
 }
 
-void	mode2_pipe(t_struct *data, int fd[2])
+void	mode2_pipe(t_struct *data)
 {
-	ft_putnbr_fd(4567890, 2);
-	(void)fd;
-	dup2(data->inpipe, 0);
-	close(fd[1]);
-	close (fd[0]);
+	write_pipe(data->fd_infile);
+	if (data->fd_infile != -1)
+	{
+		dup2(data->fd_infile, STDIN_FILENO);
+		close(data->fd_infile);
+	}
+	else
+		dup2(data->inpipe, 0);
+	if (data->fd_outfile != -1)
+	{
+		dup2(data->fd_outfile, STDOUT_FILENO);
+		close(data->fd_outfile);
+	}
+	close(data->fd[1]);
 }
 
-void mode1_pipe(t_struct *data, int fd[2])
+void	mode1_pipe(t_struct *data)
 {
-	dup2(data->fd_infile, STDIN_FILENO);
+	if (data->fd_infile != -1)
+	{
+		dup2(data->fd_infile, STDIN_FILENO);
+		close(data->fd_infile);
+	}
+	else
+		dup2(data->inpipe, 0);
 	if (data->fd_outfile != -1)
 	{
 		dup2(data->fd_outfile, STDOUT_FILENO);
 		close(data->fd_outfile);
 	}
 	else
-		dup2(fd[1], STDOUT_FILENO);
-	close(fd[1]);
-	close(fd[0]);
+		dup2(data->fd[1], 1);
+	close(data->fd[1]);
 }
 
-void	mode0_pipe(t_struct *data, int fd[2])
+void	mode0_pipe(t_struct *data)
 {
-	(void)data;
-	//printf("mode0\n");
-	//if (data->fd_infile != -1)
-	//	dup2(data->fd_infile, STDIN_FILENO);
-//	if (data->fd_outfile != -1)
-//		dup2(data->fd_outfile, STDOUT_FILENO);
-//	else
-	//close(fd[1]);
-	
-	/*if (data->inpipe != -1)
-		dup2(data->inpipe, STDIN_FILENO);
-	if (data->outpipe != -1)
-		dup2(data->outpipe, STDOUT_FILENO);
-	else*/
-	//dup2(data->inpipe, 0);
-	dup2(fd[1], 1);
-	close(fd[1]);
-	close(fd[0]);
+	if (data->fd_infile != -1)
+	{
+		dup2(data->fd_infile, STDIN_FILENO);
+		close(data->fd_infile);
+	}
+	if (data->fd_outfile != -1)
+	{
+		dup2(data->fd_outfile, STDOUT_FILENO);
+		close(data->fd_outfile);
+	}
+	else
+		dup2(data->fd[1], 1);
+	close (data->fd[1]);
 }

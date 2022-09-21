@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:35:54 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/21 18:16:59 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:00:20 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,56 +90,11 @@ void	executions_func(t_struct *data, int mode)
 			ft_infile(data);
 			ft_outfile(data);
 			if (mode == 0)
-			{
-				if (data->fd_infile != -1)
-				{
-					dup2(data->fd_infile, STDIN_FILENO);
-					close(data->fd_infile);
-				}
-				if (data->fd_outfile != -1)
-				{
-					dup2(data->fd_outfile, STDOUT_FILENO);
-					close(data->fd_outfile);
-				}
-				else
-					dup2(data->fd[1], 1);
-				close (data->fd[1]);
-			}
+				mode0_pipe(data);
 			if (mode == 1)
-			{
-				if (data->fd_infile != -1)
-				{
-					dup2(data->fd_infile, STDIN_FILENO);
-					close(data->fd_infile);
-				}
-				else
-					dup2(data->inpipe, 0);
-				if (data->fd_outfile != -1)
-				{
-					dup2(data->fd_outfile, STDOUT_FILENO);
-					close(data->fd_outfile);
-				}
-				else
-					dup2(data->fd[1], 1);
-				close(data->fd[1]);
-			}
+				mode1_pipe(data);
 			if (mode == 2 || mode == 3)
-			{
-				write_pipe(data->fd_infile);
-				if (data->fd_infile != -1)
-				{
-					dup2(data->fd_infile, STDIN_FILENO);
-					close(data->fd_infile);
-				}
-				else
-					dup2(data->inpipe, 0);
-				if (data->fd_outfile != -1)
-				{
-					dup2(data->fd_outfile, STDOUT_FILENO);
-					close(data->fd_outfile);
-				}
-				close(data->fd[1]);
-			}
+				mode2_pipe(data);
 			if (!builtins(data, 1))
 				commands_func(data);
 			exit (0);
