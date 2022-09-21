@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:46:37 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 18:59:14 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:26:34 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 
 void	pipes_func(t_struct *data, int mode)
 {
+	g_proccess = 2;
+	close(data->fd[0]);
+	ft_infile(data);
+	ft_outfile(data);
 	if (mode == 0)
 		mode0_pipe(data);
-	else if (mode == 1)
+	if (mode == 1)
 		mode1_pipe(data);
-	else if (mode == 2 || mode == 3)
+	if (mode == 2 || mode == 3)
 		mode2_pipe(data);
+	if (!builtins(data, 1))
+		commands_func(data);
+	exit (0);
 }
 
 void	builtin_pipe(t_struct *data)
@@ -41,7 +48,6 @@ void	builtin_pipe(t_struct *data)
 
 void	mode2_pipe(t_struct *data)
 {
-	write_pipe(data->fd_infile);
 	if (data->fd_infile != -1)
 	{
 		dup2(data->fd_infile, STDIN_FILENO);

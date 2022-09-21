@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 11:16:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 20:05:56 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:46:58 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,7 @@ char	**save_word2(const char *s, char c, char **split, int a)
 				free_memory2(split);
 			a++;
 		}
-		counter = check_quotes(s, counter);
-		counter++;
+		counter = check_quotes(s, counter) + 1;
 	}
 	split[a] = 0;
 	return (split);

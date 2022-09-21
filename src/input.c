@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:29:14 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 20:01:13 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:42:16 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void	prepare_data(t_struct *data, char *str, int mode)
 	data->infile = NULL;
 	data->outfile = NULL;
 	mallocs(data, str);
-	save_in_outfiles(data, str, 60);
-	save_in_outfiles(data, str, 62);
+	save_outfiles(data, str, 0, 0);
+	save_infiles(data, str, 0, 0);
 	save_cmd(data, str);
 	expand_all(data);
 	executions_func(data, mode);
@@ -106,50 +106,4 @@ void	prepare_data(t_struct *data, char *str, int mode)
 	free_memory(data->outfile);
 	free(data->infile_modes);
 	free(data->outfile_modes);
-}
-
-char	*clean_path_func(char *path)
-{
-	char	*clean_path;
-	int		i;
-	int		j;
-	int		index;
-
-	i = 1;
-	index = 0;
-	j = 0;
-	clean_path = ft_calloc(ft_strlen(path) + 1, sizeof(char));
-	while (path[i] != '\0')
-	{
-		if (path[i] == '/')
-		{
-			if (path[i + 1] == '.' && path[i + 2] == '.')
-			{
-				i += 3;
-				index = i;
-			}
-			else
-			{
-				while (index < i)
-				{
-					clean_path[j] = path[index];
-					j++;
-					index++;
-				}
-				i++;
-			}
-		}
-		else
-			i++;
-		if (path[i] == '\0')
-		{
-			while (index < i)
-			{
-				clean_path[j] = path[index];
-				j++;
-				index++;
-			}
-		}
-	}
-	return (clean_path);
 }

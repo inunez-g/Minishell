@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 18:55:50 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 20:02:22 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	executions_func(t_struct *data, int mode);
 
 void	ft_outfile(t_struct *data);
 void	ft_infile(t_struct *data);
+void	save_outfiles(t_struct *data, char *str, int i, int helper);
+void	save_infiles(t_struct *data, char *str, int i, int helper);
 
 /* ---- SIGNAL ----- */
 
@@ -69,7 +71,6 @@ void	input(t_struct *data, char *str);
 void	prepare_data(t_struct *data, char *str, int mode);
 void	mallocs(t_struct *data, char *str);
 void	expand_all(t_struct *data);
-char	*clean_path_func(char *path);
 
 /* ---- LIBFT2 ---- */
 
@@ -138,7 +139,7 @@ int		free_memory(char **split);
 /* ---- ERROR ---- */
 
 int		check_export(t_struct *data, char *str, int mode);
-void	error5(t_struct *data, int mode);
+void	error5(t_struct *data, int mode, char *str, int end);
 void	error4(t_struct *data, char c, int mode);
 void	error3(t_struct *data, char *str, char *str2, int mode);
 void	error2(t_struct *data, char *str, int mode, int activation);
@@ -154,8 +155,17 @@ int		super_strncmp(char **str1, char *str2, int n);
 /* ---- UTILS ---- */
 
 int		check_nbr_pointers(char	*str, int type);
-void	save_in_outfiles(t_struct *data, char *str, int type);
 void	save_cmd(t_struct *data, char *str);
 int		check_nbr_cmd(char *str);
+char	*clean_path_func(char *path, int i, int index, int j);
+
+/* ------ CHECKER ------ */
+
+int		mega_checker(t_struct *data, char *str);
+int		pikito_args_checker(t_struct *data, char *str);
+int		doble_pipe_checker(t_struct *data, char *str);
+int		quotes_pikito_checker(t_struct *data, char *str);
+int		pikito_checker(t_struct *data, char *str, int i, char c);
+void	pass_quotes(char *str, int *i, char c);
 
 #endif

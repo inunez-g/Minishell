@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 18:44:30 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/20 20:16:29 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 20:20:14 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,30 @@ void	error2(t_struct *data, char *str, int mode, int activation)
 		data->status = mode;
 }
 
-void	error3(t_struct *data, char *str, char *str2, int mode)
+int	error3(t_struct *data, char *str, char *str2, int mode)
 {
 	printf("bash: %s: `%s': not a valid identifier\n", str, str2);
 	data->status = mode;
+	return (1);
 }
 
 void	error4(t_struct *data, char c, int mode)
 {
-	printf("bash: unexpected EOF while looking for matching `%c'", c);
-	printf("\n");
+	write(2, "bash: unexpected EOF while looking for matching `", 50);
+	write(2, &c, 1);
+	write(2, "'\nbash: syntax error: unexpected end of file\n", 46);
 	data->status = mode;
 }
 
-void	error5(t_struct *data, int mode)
+void	error5(t_struct *data, int mode, char *str, int end)
 {
-	write(1, "bash: syntax error near unexpected token `>'\n", 45);
-	data->status = mode;
+	write(2, "bash: syntax error near unexpected token `", 43);
+	write(2, str, 1);
+	write(2, "'\n", 2);
+	if (!end)
+		data->status = mode;
+	else
+		exit(mode);
 }
 
 int	check_export(t_struct *data, char *str, int mode)

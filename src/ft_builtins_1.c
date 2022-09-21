@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:04:59 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 18:10:00 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:37:55 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ int	pwd_func(t_struct data, int mode)
 		if (mode == 0)
 			return (1);
 		printf("%s\n", getcwd(path, 1024));
-		exit(0);
-		//return (1);
+		return (1);
 	}
 	return (0);
 }
@@ -102,7 +101,7 @@ int	cd_func(t_struct *data, int mode)
 			final_path = cd_func_body(data, pos);
 			path = ft_strjoin(final_path, data->cmd[1]);
 		}
-		final_path = clean_path_func(path);
+		final_path = clean_path_func(path, 1, 0, 0);
 		if (chdir(final_path) == -1)
 		{
 			write(2, ": No such file or directory\n", 28);

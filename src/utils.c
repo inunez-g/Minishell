@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:20:51 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 19:52:50 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:42:08 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,49 +33,42 @@ int	check_nbr_pointers(char	*str, int type)
 	return (nbr_pointers);
 }
 
-void	save_in_outfiles(t_struct *data, char *str, int type)
+int	clean(char *path, int *i, int *index)
 {
-	int	i;
-	int	helper;
-	int	mode;
-
-	i = 0;
-	helper = 0;
-	while (str[i] != '\0')
+	if (path[(*i) + 1] == '.' && path[(*i) + 2] == '.')
 	{
-		mode = 1;
-		pass_spaces(str, &i);
-		if (str[i] == type)
-		{
-			i++;
-			if (str[i] == type)
-			{
-				i++;
-				mode++;
-			}
-			pass_spaces(str, &i);
-			if (type == 60)
-			{
-				data->infile[helper] = save_words(str, &i);
-				data->infile_modes[helper] = mode;
-			}
-			else if (type == 62)
-			{
-				data->outfile[helper] = save_words(str, &i);
-				data->outfile_modes[helper] = mode;
-			}
-			helper++;
-		}
-		else if (str[i] == 60 || str[i] == 62)
-			i++;
-		else
-			pass_word(str, &i);
+		(*i) += 3;
+		(*index) = (*i);
+		return (1);
 	}
-	if (type == 60)
-		data->infile[helper] = NULL;
-	else if (type == 62)
-		data->outfile[helper] = NULL;
-	return ;
+	return (0);
+}
+
+char	*clean_path_func(char *path, int i, int index, int j)
+{
+	char	*clean_path;
+
+	clean_path = ft_calloc(ft_strlen(path) + 1, sizeof(char));
+	while (path[i] != '\0')
+	{
+		if (path[i] == '/')
+		{
+			if (!clean(path, &i, &index))
+			{
+				while (index < i)
+					clean_path[j++] = path[index++];
+				i++;
+			}
+		}
+		else
+			i++;
+		if (path[i] == '\0')
+		{
+			while (index < i)
+				clean_path[j++] = path[index++];
+		}
+	}
+	return (clean_path);
 }
 
 void	save_cmd(t_struct *data, char *str)

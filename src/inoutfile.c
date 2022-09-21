@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:41:26 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/21 18:14:33 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:53:34 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,38 @@ void	ft_outfile(t_struct *data)
 	}
 }
 
+void	infile_helper(t_struct *data, int i)
+{
+	char	*temp;
+	int		fd[2];
+	char	*str;
+
+	temp = NULL;
+	str = NULL;
+	while (1)
+	{
+		temp = readline("> ");
+		if (!strncmp_ms(temp, data->infile[i]) || temp == NULL)
+			break ;
+		str = strjoin_ms(str, temp, 1);
+		str = strjoin_ms(str, "\n", 0);
+	}
+	free(temp);
+	if (data->infile[i + 1] == NULL)
+	{
+		pipe(fd);
+		write(fd[1], str, ft_strlen(str));
+		data->inpipe = fd[0];
+	}
+	free (str);
+	close(fd[1]);
+}
+
 void	ft_infile(t_struct *data)
 {
 	int		i;
 	int		fd;
-	int		fd2[2];
-	char	*temp;
-	char	*str;
 
-	str = NULL;
-	temp = NULL;
 	i = 0;
 	while (data->infile[i])
 	{
@@ -54,24 +76,64 @@ void	ft_infile(t_struct *data)
 				data->fd_infile = fd;
 		}
 		else
-		{
-			while (1)
-			{
-				temp = readline("> ");
-				if (!strncmp_ms(temp, data->infile[i]) || temp == NULL)
-					break ;
-				str = strjoin_ms(str, temp, 1);
-				str = strjoin_ms(str, "\n", 0);
-			}
-			free(temp);
-			if (data->infile[i + 1] == NULL)
-			{
-				pipe(fd2);
-				write(fd2[1], str, ft_strlen(str));
-				data->inpipe = fd2[0];
-			}
-			close(fd2[1]);
-		}
+			infile_helper(data, i);
 		i++;
 	}
+}
+
+void	save_infiles(t_struct *data, char *str, int i, int helper)
+{
+	int	mode;
+
+	while (str[i])
+	{
+		mode = 1;
+		pass_spaces(str, &i);
+		if (str[i] == '<')
+		{
+			if (str[++i] == '<')
+			{
+				i++;
+				mode++;
+			}
+			pass_spaces(str, &i);
+			data->infile[helper] = save_words(str, &i);
+			data->infile_modes[helper] = mode;
+			helper++;
+		}
+		else if (str[i] == '>')
+			i++;
+		else
+			pass_word(str, &i);
+	}
+	data->infile[helper] = NULL;
+}
+
+void	save_outfiles(t_struct *data, char *str, int i, int helper)
+{
+	int	mode;
+
+	while (str[i])
+	{
+		mode = 1;
+		pass_spaces(str, &i);
+		if (str[i] == '>')
+		{
+			i++;
+			if (str[i] == '>')
+			{
+				i++;
+				mode++;
+			}
+			pass_spaces(str, &i);
+			data->outfile[helper] = save_words(str, &i);
+			data->outfile_modes[helper] = mode;
+			helper++;
+		}
+		else if (str[i] == '<')
+			i++;
+		else
+			pass_word(str, &i);
+	}
+	data->outfile[helper] = NULL;
 }

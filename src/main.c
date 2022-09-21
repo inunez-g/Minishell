@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:51:26 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 18:17:10 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 20:11:55 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,13 @@ int	main(int argc, char **argv, char **env)
 			continue ;
 		}
 		add_history(str);
+		if (mega_checker(&data, str))
+		{
+			free (str);
+			continue ;
+		}
 		input(&data, str);
 		free(str);
 	}
 	return (0);
-}
-
-void	write_pipe(int fd)
-{
-	char	c;
-
-	while (1)
-	{
-		int i = read(fd, &c, 1);
-		if (i == 0 || i == -1)
-			break ;
-		write (0, &c, 1);
-	}
 }

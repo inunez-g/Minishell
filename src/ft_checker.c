@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 18:31:12 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/20 20:15:40 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/21 20:11:39 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	pikito_checker(t_struct *data, char *str, int i, char c)
 	{
 		if (str[i] == '>')
 		{
-			error5(data, 258);
+			error5(data, 258, &str[i], 0);
 			return (258);
 		}
 	}
@@ -83,12 +83,11 @@ int	doble_pipe_checker(t_struct *data, char *str)
 				continue ;
 			if (str[i] == '|')
 			{
-				write(1, "bash: syntax error near unexpected token `|'\n", 45);
-				data->status = 258;
+				error5(data, 255, &str[i], 0);
 				return (258);
 			}
 		}
-		if (str[i] != '\"' || str[i] != '\'')
+		if ((str[i] != '\"' || str[i] != '\'') && str[i] != '\0')
 			i++;
 	}
 	return (0);
@@ -115,9 +114,7 @@ int	pikito_args_checker(t_struct *data, char *str)
 			if (str[i] == '<' || str[i] == '>' || str[i] == '\0'
 				|| str[i] == '|')
 			{
-				printf("bash: syntax error near unexpected token `%c'\n",
-					str[i]);
-				data->status = 258;
+				error5(data, 255, &str[i], 0);
 				return (258);
 			}
 		}
@@ -135,12 +132,12 @@ int	mega_checker(t_struct *data, char *str)
 	while (str[i] == ' ' || str[i] == '9')
 		i++;
 	if (str[i] == '\0')
-		return (258);
+		return (1);
 	if (quotes_pikito_checker(data, str) == 258)
-		return (258);
+		return (1);
 	if (doble_pipe_checker(data, str) == 258)
-		return (258);
+		return (1);
 	if (pikito_args_checker(data, str) == 258)
-		return (258);
+		return (1);
 	return (1);
 }
