@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:41:26 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/21 19:53:34 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/22 18:22:20 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,19 @@ void	infile_helper(t_struct *data, int i)
 
 	temp = NULL;
 	str = NULL;
+//	signal(SIGINT, SIG_DFL);
+//	signal(SIGQUIT, SIG_DFL);
 	while (1)
 	{
 		temp = readline("> ");
-		if (!strncmp_ms(temp, data->infile[i]) || temp == NULL)
+		printf("[%s]\n", temp);
+		if (temp == NULL)
 			break ;
+		if (temp[0] == '\0' || !strncmp_ms(temp, data->infile[i]))
+		{
+			free(temp);
+			break ;
+		}
 		str = strjoin_ms(str, temp, 1);
 		str = strjoin_ms(str, "\n", 0);
 	}

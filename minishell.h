@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 20:02:22 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/22 17:33:52 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ int		free_memory(char **split);
 int		check_export(t_struct *data, char *str, int mode);
 void	error5(t_struct *data, int mode, char *str, int end);
 void	error4(t_struct *data, char c, int mode);
-void	error3(t_struct *data, char *str, char *str2, int mode);
+int		error3(t_struct *data, char *str, char *str2, int mode);
 void	error2(t_struct *data, char *str, int mode, int activation);
 void	error_free(char *str, t_struct *data);
 

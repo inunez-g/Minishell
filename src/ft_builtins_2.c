@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:05:19 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/17 19:10:29 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/22 17:39:59 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,18 @@ int	export_func_body(t_struct *data, int i)
 	return (i);
 }
 
+void	show_export(t_struct *data)
+{
+	int	i;
+
+	i = 0;
+	while(data->env[i])
+	{
+		printf("declare -x %s\n", data->env[i]);
+		i++;
+	}
+}
+
 int	export_func(t_struct *data, int mode)
 {
 	int	i;
@@ -105,6 +117,8 @@ int	export_func(t_struct *data, int mode)
 	{
 		if (mode == 0)
 			return (1);
+		if (data->cmd[1] == NULL)
+			show_export(data);
 		unset_func(data, 1, 1);
 		while (data->cmd[i])
 			i = export_func_body(data, i);

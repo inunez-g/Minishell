@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 18:31:12 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 20:11:39 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/22 17:37:54 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,5 +139,5 @@ int	mega_checker(t_struct *data, char *str)
 		return (1);
 	if (pikito_args_checker(data, str) == 258)
 		return (1);
-	return (1);
+	return (0);
 }
