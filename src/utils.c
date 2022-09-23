@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 12:20:51 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 19:42:08 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 17:00:36 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ char	*clean_path_func(char *path, int i, int index, int j)
 				clean_path[j++] = path[index++];
 		}
 	}
+	free(path);
 	return (clean_path);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:29:14 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 19:42:16 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 17:43:38 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,26 +40,26 @@ void	mallocs(t_struct *data, char *str)
 {
 	data->cmd = (char **)malloc(sizeof(char *) * (check_nbr_cmd(str) + 1));
 	if (!data->cmd)
-		error_free("Malloc error", data);
+		error_free("Malloc error\n", data);
 	data->cmd[check_nbr_cmd(str)] = NULL;
 	data->infile = (char **)malloc(sizeof(char *)
 			* (check_nbr_pointers(str, 60) + 1));
 	if (!data->infile)
-		error_free("Malloc error", data);
+		error_free("Malloc error\n", data);
 	data->cmd[check_nbr_pointers(str, 60)] = NULL;
 	data->infile_modes = (int *)malloc(sizeof(int)
 			* check_nbr_pointers(str, 60));
 	if (!data->infile_modes)
-		error_free("Malloc error", data);
+		error_free("Malloc error\n", data);
 	data->outfile = (char **)malloc(sizeof(char *)
 			* (check_nbr_pointers(str, 62) + 1));
 	if (!data->outfile)
-		error_free("Malloc error", data);
+		error_free("Malloc error\n", data);
 	data->outfile[check_nbr_pointers(str, 62)] = NULL;
 	data->outfile_modes = (int *)malloc(sizeof(int)
 			* check_nbr_pointers(str, 62));
 	if (!data->outfile_modes)
-		error_free("Malloc error", data);
+		error_free("Malloc error\n", data);
 }
 
 void	expand_all(t_struct *data)

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 18:44:30 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/22 11:37:22 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 17:51:28 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	error2(t_struct *data, char *str, int mode, int activation)
 {
-	printf("bash: %s: No such file or directory\n", str);
+	write(2, "bash: ", 7);
+	write(2, str, ft_strlen(str));
+	write(2, ": No such file or directory\n", 29);
 	if (activation == 1)
 		exit(mode);
 	else
@@ -23,7 +25,11 @@ void	error2(t_struct *data, char *str, int mode, int activation)
 
 int	error3(t_struct *data, char *str, char *str2, int mode)
 {
-	printf("bash: %s: `%s': not a valid identifier\n", str, str2);
+	write(2, "bash: ", 7);
+	write(2, str, ft_strlen(str));
+	write(2, ": `", 4);
+	write(2, str2, ft_strlen(str2));
+	write(2, "': not a valid identifier\n", 27);
 	data->status = mode;
 	return (1);
 }
@@ -87,6 +93,40 @@ int	check_export(t_struct *data, char *str, int mode)
 
 void	error_free(char *str, t_struct *data)
 {
+	write(2, str, ft_strlen(str));
+	if (data->cmd)
+		free (data->cmd);
+	if (data->infile)
+		free (data->infile);
+	if (data->infile_modes)
+		free (data->infile_modes);
+	if (data->outfile_modes)
+		free (data->outfile_modes);
+	if (data->outfile)
+		free (data->outfile);
+}
+
+int	error6(t_struct *data, char *str, int mode, int ret)
+{
+	write(2, "bash: cd: ", 11);
+	write(2, str, ft_strlen(str));
+	write(2, ": invalid option\n", 18);
+	data->status = mode;
+	return (ret);
+}
+
+int	error7(t_struct *data, int mode, int ret)
+{
+	write(2, "bash: cd: OLDPWD not set\n", 26);
+	data->status = mode;
+	return (ret);
+}
+
+int	error8(t_struct *data, char *str, int mode)
+{
 	(void)data;
-	(void)str;
+	write(2, "bash: ", 7);
+	write(2, str, ft_strlen(str));
+	write(2, ": command not found\n", 21);
+	exit(mode);
 }

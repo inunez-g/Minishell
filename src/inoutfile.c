@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:41:26 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/22 18:22:20 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 17:41:48 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ void	ft_outfile(t_struct *data)
 			fd = open(data->outfile[i], O_CREAT | O_TRUNC | O_WRONLY, 0644);
 		else
 			fd = open(data->outfile[i], O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (fd == -1)
+		{
+			write(2, "error opening/creating file\n", 29);
+		}
 		if (data->outfile[i + 1] == NULL)
 			data->fd_outfile = fd;
 		else
@@ -40,12 +44,9 @@ void	infile_helper(t_struct *data, int i)
 
 	temp = NULL;
 	str = NULL;
-//	signal(SIGINT, SIG_DFL);
-//	signal(SIGQUIT, SIG_DFL);
 	while (1)
 	{
 		temp = readline("> ");
-		printf("[%s]\n", temp);
 		if (temp == NULL)
 			break ;
 		if (temp[0] == '\0' || !strncmp_ms(temp, data->infile[i]))

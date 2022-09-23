@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/22 17:33:52 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 19:51:22 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct s_struct
 	int		fd_infile;
 	int		fd_outfile;
 	int		status;
+	int		error;
 }t_struct;
 
 void	write_pipe(int fd);
@@ -99,7 +100,7 @@ int		echo_func(t_struct data, int mode);
 int		exit_func(t_struct data, int mode);
 int		env_func(t_struct data, int mode);
 int		pwd_func(t_struct data, int mode);
-int		cd_func(t_struct *data, int mode);
+int		cd_func(t_struct *data, int mode, int pos2);
 
 char	*cd_func_body(t_struct *data, int pos);
 int		unset_func_body(t_struct *data, int i, int line);
@@ -144,6 +145,10 @@ void	error4(t_struct *data, char c, int mode);
 int		error3(t_struct *data, char *str, char *str2, int mode);
 void	error2(t_struct *data, char *str, int mode, int activation);
 void	error_free(char *str, t_struct *data);
+
+int	error6(t_struct *data, char *str, int mode, int ret);
+int	error7(t_struct *data, int mode, int ret);
+int	error8(t_struct *data, char *str, int mode);
 
 /* ----- SUPER_FUNCS -- */
 

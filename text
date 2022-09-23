@@ -1,0 +1,9 @@
+Makefile
+libft
+libft.a
+minishell
+minishell.dSYM
+minishell.h
+src
+temp
+text

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:46:37 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 19:26:34 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 17:30:20 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ void	builtin_pipe(t_struct *data)
 		dup2(data->fd_outfile, STDOUT_FILENO);
 		close(data->fd_outfile);
 	}
+	if (data->error)
+	{
+		dup2(0, STDOUT_FILENO);
+		dup2(0, STDIN_FILENO);
+		return ;
+	}
 	builtins(data, 1);
 	dup2(0, STDOUT_FILENO);
 	dup2(0, STDIN_FILENO);
@@ -50,6 +56,7 @@ void	mode2_pipe(t_struct *data)
 {
 	if (data->fd_infile != -1)
 	{
+		printf("[%s]\n", data->cmd[0]);
 		dup2(data->fd_infile, STDIN_FILENO);
 		close(data->fd_infile);
 	}
