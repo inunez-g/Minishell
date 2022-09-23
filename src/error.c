@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 18:44:30 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/23 17:51:28 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 20:47:16 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,24 +53,8 @@ void	error5(t_struct *data, int mode, char *str, int end)
 		exit(mode);
 }
 
-int	check_export(t_struct *data, char *str, int mode)
+int	check_2(t_struct *data, char *str, int i, int mode)
 {
-	int	i;
-
-	i = 0;
-	if (str[0] != '_' && !ft_isalpha(str[0]))
-	{
-		error3(data, data->cmd[0], str, 1);
-		return (1);
-	}
-	while (str[++i] && str[i] != '=')
-	{
-		if (!ft_isalnum(str[i]) && str[i] != '_')
-		{
-			error3(data, data->cmd[0], str, 1);
-			return (1);
-		}
-	}
 	if (str[i] == '=' && mode == 0)
 	{
 		error3(data, data->cmd[0], str, 1);
@@ -89,6 +73,27 @@ int	check_export(t_struct *data, char *str, int mode)
 		}
 	}
 	return (0);
+}
+
+int	check_export(t_struct *data, char *str, int mode)
+{
+	int	i;
+
+	i = 0;
+	if (str[0] != '_' && !ft_isalpha(str[0]))
+	{
+		error3(data, data->cmd[0], str, 1);
+		return (1);
+	}
+	while (str[++i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+		{
+			error3(data, data->cmd[0], str, 1);
+			return (1);
+		}
+	}
+	return (check_2(data, str, i, mode));
 }
 
 void	error_free(char *str, t_struct *data)

@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:35:54 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/23 19:52:01 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 21:25:44 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	builtins(t_struct *data, int mode)
 		return (1);
 	else if (pwd_func(*data, mode))
 		return (1);
-	else if (cd_func(data, mode, 0))
+	else if (cd_func(data, mode, 0, 0))
 		return (1);
 	else if (export_func(data, mode))
 		return (1);
@@ -56,7 +56,7 @@ int	commands_func(t_struct *data)
 		else
 			execve(ft_strjoin(path[i], command), data->cmd, data->env);
 	}
-	error8(data, data->cmd[0], 1);
+	error8(data, data->cmd[0], 127);
 	return (0);
 }
 

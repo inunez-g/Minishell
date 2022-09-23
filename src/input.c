@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:29:14 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/23 17:43:38 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 21:31:22 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	input(t_struct *data, char *str)
 
 void	mallocs(t_struct *data, char *str)
 {
-	data->cmd = (char **)malloc(sizeof(char *) * (check_nbr_cmd(str) + 1));
+	data->cmd = (char **)malloc(sizeof(char *) * ((check_nbr_cmd(str) + 1)));
 	if (!data->cmd)
 		error_free("Malloc error\n", data);
 	data->cmd[check_nbr_cmd(str)] = NULL;
@@ -46,7 +46,7 @@ void	mallocs(t_struct *data, char *str)
 			* (check_nbr_pointers(str, 60) + 1));
 	if (!data->infile)
 		error_free("Malloc error\n", data);
-	data->cmd[check_nbr_pointers(str, 60)] = NULL;
+	data->cmd[check_nbr_cmd(str)] = NULL;
 	data->infile_modes = (int *)malloc(sizeof(int)
 			* check_nbr_pointers(str, 60));
 	if (!data->infile_modes)

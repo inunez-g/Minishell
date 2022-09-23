@@ -6,21 +6,11 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 18:51:26 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/22 17:55:24 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 21:02:03 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-int	export_helper(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0' && str[i] != '=')
-		i++;
-	return (i);
-}
 
 static void	init_data(struct sigaction *sa, t_struct *data, char **env)
 {

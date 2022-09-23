@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 19:13:00 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/23 19:51:22 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 21:14:40 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	expand_all(t_struct *data);
 
 /* ---- LIBFT2 ---- */
 
-char	*super_join(char **str);
+char	*super_join(char **str, int counter);
 char	*strjoin_ms(char *str1, char *str2, int boo);
 int		strncmp_ms(char *s1, char *s2);
 char	*substr_ms(char *s, unsigned int start, size_t	len);
@@ -100,7 +100,7 @@ int		echo_func(t_struct data, int mode);
 int		exit_func(t_struct data, int mode);
 int		env_func(t_struct data, int mode);
 int		pwd_func(t_struct data, int mode);
-int		cd_func(t_struct *data, int mode, int pos2);
+int		cd_func(t_struct *data, int mode, int pos, int pos2);
 
 char	*cd_func_body(t_struct *data, int pos);
 int		unset_func_body(t_struct *data, int i, int line);

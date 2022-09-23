@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:41:26 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/23 17:41:48 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 21:37:57 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	infile_helper(t_struct *data, int i)
 		}
 		str = strjoin_ms(str, temp, 1);
 		str = strjoin_ms(str, "\n", 0);
+		temp = NULL;
 	}
 	free(temp);
 	if (data->infile[i + 1] == NULL)

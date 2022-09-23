@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 17:26:42 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/23 17:01:20 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 21:15:27 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	strncmp_ms(char *s1, char *s2)
 	int	i;
 
 	i = 0;
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (1);
 	if (s1 == NULL || s1[0] == '\0' || s2 == NULL)
 		return (1);
 	while (s1[i] != '\0' && s2[i] != '\0')
@@ -55,7 +57,7 @@ char	*strjoin_ms(char *str1, char *str2, int boo)
 	return (final);
 }
 
-char	*super_join(char **str)
+char	*super_join(char **str, int counter)
 {
 	int		i;
 	char	*final;
@@ -64,7 +66,7 @@ char	*super_join(char **str)
 	final = NULL;
 	if (str == NULL)
 		return (NULL);
-	while (str[i])
+	while (i< counter)
 	{
 		final = strjoin_ms(final, str[i], 1);
 		i++;

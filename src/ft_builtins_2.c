@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:05:19 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/22 17:39:59 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 21:16:20 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,11 @@ int	unset_func(t_struct *data, int helper, int mode)
 			return (1);
 		while (data->cmd[i])
 		{
+			if (check_export(data, data->cmd[i], 0))
+			{
+				i++;
+				continue ;
+			}
 			line = super_strncmp(data->env, data->cmd[i],
 					export_helper(data->cmd[i]));
 			if (line != -1)
@@ -72,6 +77,16 @@ int	unset_func(t_struct *data, int helper, int mode)
 		return (1);
 	}
 	return (0);
+}
+
+int	export_helper(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] != '=')
+		i++;
+	return (i);
 }
 
 int	export_func_body(t_struct *data, int i)
@@ -121,7 +136,15 @@ int	export_func(t_struct *data, int mode)
 			show_export(data);
 		unset_func(data, 1, 1);
 		while (data->cmd[i])
-			i = export_func_body(data, i);
+		{
+			if (check_export(data, data->cmd[i], 1))
+			{
+				i++;
+				continue ;
+			}
+			else
+				i = export_func_body(data, i);
+		}
 		return (1);
 	}
 	return (0);

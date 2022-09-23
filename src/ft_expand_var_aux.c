@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 18:30:03 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/21 18:44:51 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:19:53 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	count_dollar(char *str)
 	check = 0;
 	while (str[i])
 	{
-		if ((!ft_isalnum(str[i]) && str[i] != '_') && i != 0)
+		if ((!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '?') && i != 0)
 		{
 			counter++;
 			i++;

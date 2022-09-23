@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 17:43:05 by ecamara           #+#    #+#             */
-/*   Updated: 2022/09/22 18:21:57 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 21:36:43 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	sighandler(int signal, siginfo_t *a, void *b)
 	}
 	if (signal == 2 && (g_proccess == 1 || g_proccess == 2))
 	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_redisplay();
+		
 	}
 }

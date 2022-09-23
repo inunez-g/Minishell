@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:04:59 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/23 20:03:51 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 20:58:17 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,17 @@ int	env_func(t_struct data, int mode)
 int	pwd_func(t_struct data, int mode)
 {
 	char	path[1024];
+	int		pos;
 
 	if (!strncmp_ms(data.cmd[0], "pwd") && ft_strlen(data.cmd[0]) == 3)
 	{
 		if (mode == 0)
 			return (1);
-		printf("%s\n", getcwd(path, 1024));
+		pos = super_strncmp(data.env, "PWD=", 4);
+		if (pos != -1)
+			printf("%s\n", data.env[pos] + 4);
+		else
+			printf("%s\n", getcwd(path, 1024));
 		return (1);
 	}
 	return (0);
@@ -105,6 +110,7 @@ void	change(t_struct *data)
 void	cd2(t_struct *data, int *pos2, int *pos, char *path)
 {
 	*pos2 = super_strncmp(data->env, "OLDPWD=", 7);
+	*pos = super_strncmp(data->env, "PWD=", 4);
 	if (*pos2 != -1)
 		free (data->env[*pos2]);
 	else
@@ -112,7 +118,6 @@ void	cd2(t_struct *data, int *pos2, int *pos, char *path)
 		change(data);
 		*pos2 = super_strlen(data->env);
 	}
-	*pos = super_strncmp(data->env, "PWD=", 4);
 	if (*pos != -1)
 		free (data->env[*pos]);
 	else
@@ -120,17 +125,30 @@ void	cd2(t_struct *data, int *pos2, int *pos, char *path)
 		change(data);
 		*pos = super_strlen(data->env);
 	}
-	data->env[*pos2] = ft_strjoin("OLDPWD=", path);
-	printf("[%s]\n", data->env[*pos2]);
+	if (!ft_strncmp(path, "/Users", ft_strlen(path)))
+		data->env[*pos2] = ft_strdup("OLDPWD=/");
+	else
+		data->env[*pos2] = ft_strjoin("OLDPWD=", path);
 }
 
 int	cd3(t_struct *data, char **final_path, int pos, char **path)
 {
-	if (chdir(*final_path) == -1)
+	int	temp;
+
+	temp = chdir(*final_path);
+	printf("[%d][%s]\n", temp, data->cmd[1]);
+	if (!ft_strncmp(data->cmd[1], "..", ft_strlen(data->cmd[1])) && temp == -1)
+	{
+		data->env[pos] = ft_strdup("PWD=/");
+		free (*final_path);
+		free (*path);
+		return (1);
+	}
+	if (temp == -1)
 	{
 		write(2, ": No such file or directory\n", 28);
 		free(*final_path);
-		free (path);
+		free (*path);
 		data->status = 1;
 		return (1);
 	}
@@ -161,11 +179,10 @@ void	cd5(t_struct *data, char **final_path, int pos2)
 	write(0, "\n", 1);
 }
 
-int	cd_func(t_struct *data, int mode, int pos2)
+int	cd_func(t_struct *data, int mode, int pos,  int pos2)
 {
 	char	*path;
 	char	*final_path;
-	int		pos;
 
 	if (!strncmp_ms(data->cmd[0], "cd"))
 	{
@@ -182,9 +199,9 @@ int	cd_func(t_struct *data, int mode, int pos2)
 			else
 				cd5(data, &final_path, pos2);
 		}
-		else 
+		else
 			cd4(data, &final_path, &path);
-		cd2(data, &pos, &pos2, path);
+		cd2(data, &pos2, &pos, path);
 		return (cd3(data, &final_path, pos, &path));
 	}
 	return (0);

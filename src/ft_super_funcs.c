@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:01:11 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/17 19:10:13 by ecamara          ###   ########.fr       */
+/*   Updated: 2022/09/23 20:56:54 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	super_strncmp(char **str1, char *str2, int n)
 	i = 0;
 	while (str1[i] != NULL)
 	{
-		if (!strncmp(str1[i], str2, n))
+		if (!ft_strncmp(str1[i], str2, n))
 			return (i);
 		i++;
 	}

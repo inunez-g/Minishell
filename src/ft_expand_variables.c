@@ -6,7 +6,7 @@
 /*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 19:15:58 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/21 18:45:13 by inunez-g         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:25:05 by ecamara          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ char	*ft_dollar(t_struct *data, char *str)
 	while (str[i] != '\0')
 	{
 		index = i;
-		if (!ft_isalnum(str[index]) && str[index] != '_')
+		if (!ft_isalnum(str[index]) && str[index] != '_' && str[index] != '?')
 			i++;
 		pass(str, &i);
 		final[counter] = expand_var(data, ft_substr(str, index, i - index));
 		counter++;
 	}
 	free(str);
-	return (super_join(final));
+	return (super_join(final, counter));
 }
 
 char	*expand_var(t_struct *data, char *word)
@@ -86,6 +86,11 @@ char	*expand_var(t_struct *data, char *word)
 
 	if (word[0] == '$')
 	{
+		if ('?' == word[1])
+		{
+			free(word);
+			return (ft_itoa(data->status));
+		}
 		word = strjoin_ms(substr_ms(word, 1, ft_strlen(word + 1)), "=", 0);
 		line = super_strncmp(data->env, word, ft_strlen(word));
 		len = ft_strlen(word);
@@ -118,5 +123,5 @@ char	*expand_variables(t_struct *data, char *str)
 		}
 		i++;
 	}
-	return (super_join(word));
+	return (super_join(word, i));
 }
