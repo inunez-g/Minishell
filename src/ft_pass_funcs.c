@@ -46,15 +46,7 @@ void	ft_mega_pass(char *str, int *i, char *characters)
 
 void	pass(char *str, int *i)
 {
-	while (str[*i] != '\0' && (ft_isalnum(str[*i]) || str[*i] == '_' || str[*i] == '?'))
+	while (str[*i] != '\0' && (ft_isalnum(str[*i])
+			|| str[*i] == '_' || str[*i] == '?'))
 		(*i)++;
-}
-
-char	*save_words(char *str, int *i)
-{
-	int	j;
-
-	j = *i;
-	pass_word(str, i);
-	return (ft_substr(str, j, *i - j));
 }

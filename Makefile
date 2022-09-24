@@ -6,17 +6,23 @@ CSRC =	src/main.c						\
 		src/ft_super_funcs.c			\
 		src/ft_builtins_1.c				\
 		src/ft_builtins_2.c				\
+		src/ft_builtins_3.c				\
+		src/ft_builtins_4.c				\
 		src/ft_mode_pipes.c				\
-		src/ft_pass_save_funcs.c		\
+		src/ft_pass_funcs.c				\
+		src/ft_save_funcs.c				\
 		src/ft_expand_variables.c		\
 		src/libft2.c					\
 		src/signals.c					\
 		src/inoutfile.c					\
 		src/input.c						\
 		src/error.c						\
-		src/ft_expand_var_aux.c	\
+		src/error2.c					\
+		src/ft_expand_var_aux.c			\
 		src/proccess.c					\
-		src/ft_checker.c
+		src/heredock.c					\
+		src/ft_checker.c				\
+		src/ft_checker2.c
 
 OSRC = $(CSRC:.c=.o)
 

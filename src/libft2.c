@@ -66,7 +66,7 @@ char	*super_join(char **str, int counter)
 	final = NULL;
 	if (str == NULL)
 		return (NULL);
-	while (i< counter)
+	while (i < counter)
 	{
 		final = strjoin_ms(final, str[i], 1);
 		i++;

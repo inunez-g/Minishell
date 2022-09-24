@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_builtins_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ecamara <ecamara@student.42.fr>            +#+  +:+       +#+        */
+/*   By: inunez-g <inunez-g@student.42urduli>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 17:05:19 by inunez-g          #+#    #+#             */
-/*   Updated: 2022/09/23 21:16:20 by ecamara          ###   ########.fr       */
+/*   Created: 2022/09/24 11:01:46 by inunez-g          #+#    #+#             */
+/*   Updated: 2022/09/24 11:01:50 by inunez-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,6 @@ int	unset_func(t_struct *data, int helper, int mode)
 	return (0);
 }
 
-int	export_helper(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] != '\0' && str[i] != '=')
-		i++;
-	return (i);
-}
-
 int	export_func_body(t_struct *data, int i)
 {
 	char	**new_env;
@@ -109,18 +99,6 @@ int	export_func_body(t_struct *data, int i)
 	data->env = new_env;
 	i++;
 	return (i);
-}
-
-void	show_export(t_struct *data)
-{
-	int	i;
-
-	i = 0;
-	while(data->env[i])
-	{
-		printf("declare -x %s\n", data->env[i]);
-		i++;
-	}
 }
 
 int	export_func(t_struct *data, int mode)

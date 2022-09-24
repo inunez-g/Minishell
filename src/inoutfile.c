@@ -48,7 +48,6 @@ void	infile_helper(t_struct *data, int i, int fd[2])
 	while (1)
 	{
 		temp = readline("> ");
-		printf("str[%s]", temp);
 		if (temp == NULL)
 			break ;
 		if (!strncmp_ms(temp, data->infile[i]))
@@ -65,40 +64,6 @@ void	infile_helper(t_struct *data, int i, int fd[2])
 	free (str);
 	close(fd[1]);
 	exit(0);
-}
-
-void	write_pipe(int fd)
-{
-	char c;
-
-	while (1)
-	{
-		int temp = read(fd, &c, 1);
-		if (temp == 0 || temp == -1)
-			break ;
-		printf("[%c]", c);
-	}
-}
-
-void	here_dock(t_struct *data, int i)
-{
-	int	pid;
-	int	status;
-	int	fd[2];
-
-	pipe(fd);
-	pid = fork();
-	if (pid == -1)
-		return ;
-	if (pid == 0)
-		infile_helper(data, i, fd);
-	else
-	{
-		close(fd[1]);
-		waitpid(pid, &status, 0);
-		g_proccess = 1;
-		data->inpipe = fd[0];
-	}
 }
 
 void	ft_infile(t_struct *data)

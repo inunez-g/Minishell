@@ -31,14 +31,12 @@ void	sighandler(int signal, siginfo_t *a, void *b)
 	if (signal == 2 && g_proccess == 0)
 	{
 		ft_new_line();
-		//printf("aaaaaa\n");
 	}
 	if (signal == 2 && g_proccess == 3)
 	{
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		//rl_redisplay();
 		exit(0);
 	}
 }
