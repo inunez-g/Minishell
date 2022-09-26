@@ -114,6 +114,8 @@ int		cd_func(t_struct *data, int mode, int pos, int pos2);
 
 int		export_helper(char *str);
 void	show_export(t_struct *data);
+int		checkexit(char *str, t_struct *data);
+int		checkpath(t_struct *data);
 
 /* --- MODES_PIPES --- */
 
@@ -190,7 +192,7 @@ int		mega_checker(t_struct *data, char *str);
 
 /* ------ HEREDOCK ------ */
 
-void	write_pipe(int fd);
 void	here_dock(t_struct *data, int i);
+void	end(char *str, int fd[2]);
 
 #endif

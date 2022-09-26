@@ -23,35 +23,48 @@ static void	init_data(struct sigaction *sa, t_struct *data, char **env)
 	data->env = super_dup(env);
 }
 
-int	main(int argc, char **argv, char **env)
+void	main3(void)
 {
-	char				*str;
-	t_struct			data;
-	struct sigaction	sa;
+	write(2, "exit\n", 5);
+	exit (0);
+}
 
-	(void)argc;
-	(void)argv;
-	init_data(&sa, &data, env);
+void	main2(t_struct *data)
+{
+	char	*str;
+
 	while (1)
 	{
 		g_proccess = 0;
+		data->inpipe = -1;
 		str = readline("consola> ");
 		g_proccess = 1;
 		if (!str)
-			exit (0);
+			main3();
 		if (str[0] == '\0')
 		{
 			free(str);
 			continue ;
 		}
 		add_history(str);
-		if (mega_checker(&data, str))
+		if (mega_checker(data, str))
 		{
 			free (str);
 			continue ;
 		}
-		input(&data, str);
+		input(data, str);
 		free(str);
 	}
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_struct			data;
+	struct sigaction	sa;
+
+	(void)argc;
+	(void)argv;
+	init_data(&sa, &data, env);
+	main2(&data);
 	return (0);
 }

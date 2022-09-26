@@ -24,8 +24,8 @@ void	sighandler(int signal, siginfo_t *a, void *b)
 {
 	(void)a;
 	(void)b;
-	if (signal == SIGQUIT)
-		return ;
+	if (signal == SIGQUIT && g_proccess == 4)
+		write(2, "Quit : 3\n", 9);
 	if (signal == 0)
 		exit (0);
 	if (signal == 2 && g_proccess == 0)

@@ -33,3 +33,42 @@ void	show_export(t_struct *data)
 		i++;
 	}
 }
+
+int	checkexit(char *str, t_struct *data)
+{
+	int	i;
+
+	if (str == NULL)
+		return (0);
+	if (super_strlen(data->cmd + 1) != 1)
+	{
+		write (2, "exit \nbash: exit: too many arguments\n", 37);
+		data->status = 1;
+		return (1);
+	}
+	i = -1;
+	while (str[++i])
+	{
+		if (!ft_isdigit(str[i]))
+		{
+			write (2, "exit \nbash: exit: ", 18);
+			write (2, str, ft_strlen(str));
+			write(2, ": numeric argument required\n", 28);
+			exit (255);
+		}
+	}
+	return (0);
+}
+
+int	checkpath(t_struct *data)
+{
+	int	pos;
+
+	pos = super_strncmp(data->env, "PATH=", 5);
+	if (pos == -1)
+	{
+		error2(data, data->cmd[0], 127, 1);
+		exit(127);
+	}
+	return (pos);
+}

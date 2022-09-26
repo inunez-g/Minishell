@@ -63,7 +63,7 @@ int	unset_func(t_struct *data, int helper, int mode)
 			return (1);
 		while (data->cmd[i])
 		{
-			if (check_export(data, data->cmd[i], 0))
+			if (helper != 1 && check_export(data, data->cmd[i], 0))
 			{
 				i++;
 				continue ;
@@ -93,7 +93,7 @@ int	export_func_body(t_struct *data, int i)
 		new_env[j] = data->env[j];
 		j++;
 	}
-	new_env[j] = data->cmd[i];
+	new_env[j] = ft_strdup(data->cmd[i]);
 	new_env[j + 1] = NULL;
 	free(data->env);
 	data->env = new_env;

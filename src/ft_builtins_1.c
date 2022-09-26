@@ -44,6 +44,9 @@ int	exit_func(t_struct data, int mode)
 	{
 		if (mode == 0)
 			return (1);
+		if (checkexit(data.cmd[1], &data))
+			return (1);
+		write(2, "exit\n", 5);
 		if (data.cmd[1] != NULL)
 			exit(ft_atoi(data.cmd[1]));
 		else

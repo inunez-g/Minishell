@@ -54,7 +54,7 @@ int	quotes_pikito_checker(t_struct *data, char *str)
 				return (258);
 			}
 		}
-		if (str[i] == '<' || str[i] == '>')
+		else if (str[i] == '<' || str[i] == '>')
 		{
 			i = pikito_checker(data, str, i, str[i]);
 			if (i == 258)
@@ -77,7 +77,7 @@ int	doble_pipe_checker(t_struct *data, char *str)
 			pass_quotes(str, &i, str[i]);
 			i++;
 		}
-		if (str[i] == '|')
+		else if (str[i] == '|')
 		{
 			while (str[++i] == ' ')
 				continue ;
@@ -87,7 +87,7 @@ int	doble_pipe_checker(t_struct *data, char *str)
 				return (258);
 			}
 		}
-		if ((str[i] != '\"' || str[i] != '\'') && str[i] != '\0')
+		else if ((str[i] != '\"' || str[i] != '\'') && str[i] != '\0')
 			i++;
 	}
 	return (0);

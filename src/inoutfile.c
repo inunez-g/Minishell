@@ -44,9 +44,9 @@ void	infile_helper(t_struct *data, int i, int fd[2])
 	temp = NULL;
 	str = NULL;
 	close(fd[0]);
-	g_proccess = 3;
 	while (1)
 	{
+		g_proccess = 3;
 		temp = readline("> ");
 		if (temp == NULL)
 			break ;
@@ -61,9 +61,7 @@ void	infile_helper(t_struct *data, int i, int fd[2])
 	}
 	if (data->infile[i + 1] == NULL)
 		write(fd[1], str, ft_strlen(str));
-	free (str);
-	close(fd[1]);
-	exit(0);
+	end(str, fd);
 }
 
 void	ft_infile(t_struct *data)

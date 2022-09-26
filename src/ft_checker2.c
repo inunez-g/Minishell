@@ -12,6 +12,21 @@
 
 #include "../minishell.h"
 
+int	pikito_args_checker2(t_struct *data, int *i, char *str)
+{
+	(*i)++;
+	if (str[*i] == '<' || str[*i] == '>')
+		(*i)++;
+	pass_spaces(str, i);
+	if (str[*i] == '<' || str[*i] == '>' || str[*i] == '\0'
+		|| str[*i] == '|')
+	{
+		error5(data, 255, &str[*i], 0);
+		return (1);
+	}
+	return (0);
+}
+
 int	pikito_args_checker(t_struct *data, char *str)
 {
 	int	i;
@@ -24,20 +39,12 @@ int	pikito_args_checker(t_struct *data, char *str)
 			pass_quotes(str, &i, str[i]);
 			i++;
 		}
-		if (str[i] == '<' || str[i] == '>')
+		else if (str[i] == '<' || str[i] == '>')
 		{
-			i++;
-			if (str[i] == '<' || str[i] == '>')
-				i++;
-			pass_spaces(str, &i);
-			if (str[i] == '<' || str[i] == '>' || str[i] == '\0'
-				|| str[i] == '|')
-			{
-				error5(data, 255, &str[i], 0);
+			if (pikito_args_checker2(data, &i, str))
 				return (258);
-			}
 		}
-		if (str[i] != '\"' || str[i] != '\'')
+		else if (str[i] != '\"' || str[i] != '\'')
 			i++;
 	}
 	return (0);

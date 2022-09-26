@@ -31,6 +31,12 @@ int	builtins(t_struct *data, int mode)
 	return (0);
 }
 
+void	onecommand(t_struct *data)
+{
+	if (access(data->cmd[0], X_OK) != -1)
+		execve(data->cmd[0], data->cmd, data->env);
+}
+
 int	commands_func(t_struct *data)
 {
 	char	*final_path;
@@ -39,20 +45,20 @@ int	commands_func(t_struct *data)
 	int		pos;
 	int		i;
 
-	i = 0;
+	i = -1;
 	if (data->cmd[0] == NULL)
 		exit (0);
+	if (data->cmd[0][0] == '\0')
+		error8(data, data->cmd[0], 127);
+	onecommand(data);
 	command = ft_strjoin("/", data->cmd[0]);
-	pos = super_strncmp(data->env, "PATH=", 5);
+	pos = checkpath(data);
 	path = ft_split(data->env[pos] + 5, ':');
-	while (path[i] != NULL)
+	while (path[++i] != NULL)
 	{
 		final_path = ft_strjoin(path[i], command);
 		if (access(final_path, X_OK) == -1)
-		{
 			free(final_path);
-			i++;
-		}
 		else
 			execve(ft_strjoin(path[i], command), data->cmd, data->env);
 	}
@@ -88,6 +94,7 @@ void	executions_func(t_struct *data, int mode)
 			pipes_func(data, mode);
 		else
 		{
+			g_proccess = 4;
 			close(data->fd[1]);
 			waitpid(pid, &status, 0);
 			g_proccess = 1;

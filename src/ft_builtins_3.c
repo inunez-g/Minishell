@@ -41,7 +41,6 @@ int	cd3(t_struct *data, char **final_path, int pos, char **path)
 	int	temp;
 
 	temp = chdir(*final_path);
-	printf("[%d][%s]\n", temp, data->cmd[1]);
 	if (!ft_strncmp(data->cmd[1], "..", ft_strlen(data->cmd[1])) && temp == -1)
 	{
 		data->env[pos] = ft_strdup("PWD=/");

@@ -12,17 +12,11 @@
 
 #include "../minishell.h"
 
-void    write_pipe(int fd)
+void	end(char *str, int fd[2])
 {
-    char    c;
-
-	while (1)
-	{
-		int temp = read(fd, &c, 1);
-		if (temp == 0 || temp == -1)
-			break ;
-		printf("[%c]", c);
-	}
+	free (str);
+	close(fd[1]);
+	exit(0);
 }
 
 void	here_dock(t_struct *data, int i)

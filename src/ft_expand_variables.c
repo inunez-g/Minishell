@@ -84,7 +84,7 @@ char	*expand_var(t_struct *data, char *word)
 	int		line;
 	int		len;
 
-	if (word[0] == '$')
+	if (word[0] == '$' && word[1] != '\0')
 	{
 		if ('?' == word[1])
 		{
